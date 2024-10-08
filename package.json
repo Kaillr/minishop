@@ -1,0 +1,16 @@
+{
+  "name": "minishop",
+  "version": "1.0.0",
+  "description": "Minishop is a shopping site where the concept is to earn points by playing minigames in order to purchase various products.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shopping",
+    "minigames",
+    "points"
+  ],
+  "author": "Kaillr",
+  "license": "ISC"
+}
