@@ -23,7 +23,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /var/www/mikaelho.land/
+          cd /var/www/minishop/
           git pull origin main
           git status
           npm install --only=prod
