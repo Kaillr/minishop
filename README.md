@@ -1,7 +1,7 @@
 
 # 🛍️ Minishop
 
-<i>[Minishop](https://minishop.mikaelho.land/) Shopping Site where the concept is to earn points by playing minigames in order to purchase various products.</i>
+<i>[Minishop](https://minishop.mikaelho.land/) is a Shopping Site where the concept is to earn points by playing minigames in order to purchase various products.</i>
 
 ## 💡Ideas for Minishop
 
