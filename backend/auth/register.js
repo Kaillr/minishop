@@ -15,13 +15,9 @@ const registerUser = async (req, res) => {
 
         // Insert user into database
         const sql = 'INSERT INTO Users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
-        db.query(sql, [first_name, last_name, email, hashedPassword], (error, results) => {
-            if (error) {
-                console.error(error);
-                return res.status(500).send('Database error');
-            }
-            res.status(201).send('User registered successfully');
-        });
+        const [results] = await db.promise().query(sql, [first_name, last_name, email, hashedPassword]); // Using promise-based approach
+        
+        res.status(201).send('User registered successfully');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal server error');
