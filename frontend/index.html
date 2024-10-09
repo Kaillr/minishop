@@ -29,10 +29,10 @@
 
         // Function to log out
         function logout() {
-            // Send a request to your logout endpoint
+            // Send a request to your logout endpoint on the auth service
             fetch('https://authminishop.mikaelho.land/logout', {
                 method: 'POST',
-                credentials: 'include'
+                credentials: 'include' // Include credentials to send cookies
             })
             .then(response => {
                 if (response.ok) {

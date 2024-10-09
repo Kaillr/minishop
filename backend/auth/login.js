@@ -29,11 +29,13 @@ router.post('/login', async (req, res) => {
                 return res.status(401).send('Invalid password');
             }
 
-            // Set a cookie (you can adjust options as needed)
-            res.cookie('userId', user.user_id, { httpOnly: true, secure: true }); // Use secure: true in production
-            
+            // Set a cookie for minishop.mikaelho.land
+            res.cookie('userId', user.id, { httpOnly: true, secure: true, domain: 'minishop.mikaelho.land' });
+
+
             // Redirect to the minishop domain
-            return res.redirect('https://minishop.mikaelho.land');
+            return res.redirect('https://minishop.mikaelho.land'); // Change this to your desired URL
+        });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).send('Internal server error');
