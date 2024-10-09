@@ -4,11 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minishop</title>
+    <script>
+        // Function to check if the user is logged in
+        function checkLogin() {
+            const userId = getCookie("userId");
+            const header = document.getElementById("header");
+            
+            if (userId) {
+                // User is logged in, show the logout button
+                header.innerHTML += '<a href="#" id="logout">Logout</a>';
+                document.getElementById("logout").addEventListener("click", logout);
+            } else {
+                // User is not logged in, show login link
+                header.innerHTML += '<a href="login.html">Login</a>';
+            }
+        }
+
+        // Function to get a cookie by name
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Function to log out
+        function logout() {
+            // Send a request to your logout endpoint
+            fetch('https://authminishop.mikaelho.land/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to the homepage or login page
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Failed to log out');
+                }
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+            });
+        }
+
+        // Call checkLogin on page load
+        window.onload = checkLogin;
+    </script>
 </head>
 <body>
-    <header>
+    <header id="header">
         <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
         <a href="account.html">Account</a>
     </header>
 </body>

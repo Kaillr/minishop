@@ -31,8 +31,9 @@ router.post('/login', async (req, res) => {
 
             // Set a cookie (you can adjust options as needed)
             res.cookie('userId', user.user_id, { httpOnly: true, secure: true }); // Use secure: true in production
-            res.status(200).send('Login successful');
-        });
+            
+            // Redirect to the minishop domain
+            return res.redirect('https://minishop.mikaelho.land');
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).send('Internal server error');
