@@ -31,8 +31,8 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert user into database
-    const sql = 'INSERT INTO Users (username, email, password) VALUES (?, ?, ?)';
-    db.query(sql, [username, email, hashedPassword], (error, results) => {
+    const sql = 'INSERT INTO Users (name, email, password) VALUES (?, ?, ?)';
+    db.query(sql, [name, email, hashedPassword], (error, results) => {
         if (error) {
             console.error(error);
             return res.status(500).send('Database error');
