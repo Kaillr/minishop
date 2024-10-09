@@ -27,7 +27,7 @@ db.connect((err) => {
 });
 
 // Registration endpoint
-app.post('/auth/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { first_name, last_name, email, password, passwordConfirm } = req.body;
 
     // Check if passwords match
