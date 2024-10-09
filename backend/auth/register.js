@@ -4,7 +4,8 @@ const db = require('../config/db');
 
 const router = express.Router();
 
-const registerUser = async (req, res) => {
+// Registration endpoint
+router.post('/register', async (req, res) => {
     const { first_name, last_name, email, password, passwordConfirm } = req.body;
 
     // Check if passwords match
@@ -18,15 +19,17 @@ const registerUser = async (req, res) => {
 
         // Insert user into database
         const sql = 'INSERT INTO Users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
-        const [results] = await db.promise().query(sql, [first_name, last_name, email, hashedPassword]); // Using promise-based approach
-        
-        res.status(201).send('User registered successfully');
+        db.query(sql, [first_name, last_name, email, hashedPassword], (error, results) => {
+            if (error) {
+                console.error('Error during registration:', error);
+                return res.status(500).send('Database error');
+            }
+            res.status(201).send('User registered successfully');
+        });
     } catch (error) {
-        console.error(error);
+        console.error('Error during registration:', error);
         res.status(500).send('Internal server error');
     }
-};
-
-router.post('/register', registerUser);
+});
 
 module.exports = router;
