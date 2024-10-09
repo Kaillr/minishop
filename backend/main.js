@@ -2,6 +2,9 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv')
+
+dotenv.config({ path: './.env' })
 
 const app = express();
 const port = 3000;
@@ -12,10 +15,10 @@ app.use(bodyParser.json());
 
 // MySQL connection
 const db = mysql.createConnection({
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 });
 
 db.connect((err) => {
@@ -24,16 +27,19 @@ db.connect((err) => {
 });
 
 // Registration endpoint
-app.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+app.post('/auth/register', async (req, res) => {
+    const { first_name, last_name, email, password, passwordConfirm } = req.body;
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert user into database
-    const sql = 'INSERT INTO Users (name, email, password) VALUES (?, ?, ?)';
-    db.query(sql, [name, email, hashedPassword], (error, results) => {
-        if (error) {
+    const sql = 'INSERT INTO Users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
+    db.query(sql, [first_name, last_name, email, hashedPassword], async (error, results) => {
+        if ( password !== passwordConfirm ) {
+            res.status(401).send('Password does not match');
+        }
+        else if (error) {
             console.error(error);
             return res.status(500).send('Database error');
         }
