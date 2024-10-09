@@ -1,5 +1,8 @@
+const express = require('express');
 const bcrypt = require('bcrypt');
 const db = require('../config/db');
+
+const router = express.Router();
 
 const registerUser = async (req, res) => {
     const { first_name, last_name, email, password, passwordConfirm } = req.body;
@@ -24,4 +27,6 @@ const registerUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser };
+router.post('/register', registerUser);
+
+module.exports = router;

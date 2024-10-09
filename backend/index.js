@@ -14,9 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Use routes
-app.use(registerRoutes);
-app.use(loginRoutes);
+// Use routes with specific paths
+app.use('/auth/register', registerRoutes); // Mount register routes at /auth/register
+app.use('/auth/login', loginRoutes);       // Mount login routes at /auth/login
 
 // Start the server
 app.listen(port, () => {
