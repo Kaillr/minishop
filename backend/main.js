@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: 'localhost',
+    ***REMOVED***
     ***REMOVED***
     ***REMOVED***
     ***REMOVED***
