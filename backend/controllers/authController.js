@@ -1,33 +1,7 @@
-const express = require('express');
 const bcrypt = require('bcrypt');
-const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv')
+const db = require('../config/db');
 
-dotenv.config({ path: './.env' })
-
-const app = express();
-const port = 3000;
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// MySQL connection
-const db = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-});
-
-db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to database');
-});
-
-// Registration endpoint
-app.post('/register', async (req, res) => {
+const registerUser = async (req, res) => {
     const { first_name, last_name, email, password, passwordConfirm } = req.body;
 
     // Check if passwords match
@@ -52,10 +26,6 @@ app.post('/register', async (req, res) => {
         console.error(error);
         res.status(500).send('Internal server error');
     }
-});
+};
 
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+module.exports = { registerUser };
