@@ -1,10 +1,10 @@
-// app.js
+// app.js (or index.js)
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const db = require('./config/db');
-const registerRoutes = require('./auth/register');
-const loginRoutes = require('./auth/login');
+const db = require('./config/db'); // Adjust path as necessary
+const registerRoutes = require('./auth/register'); // Adjust path as necessary
+const loginRoutes = require('./auth/login'); // Adjust path as necessary
 
 const app = express();
 const port = 3000;
@@ -12,11 +12,11 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser()); // Enable cookie parsing
 
-// Use routes with specific paths
-app.use('/auth/register', registerRoutes); // Mount register routes at /auth/register
-app.use('/auth/login', loginRoutes);       // Mount login routes at /auth/login
+// Use routes
+app.use(registerRoutes); // Register register routes
+app.use(loginRoutes); // Register login routes
 
 // Start the server
 app.listen(port, () => {
