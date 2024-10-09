@@ -1,22 +1,47 @@
-// main.js
 const express = require('express');
+const bcrypt = require('bcrypt');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON requests
-app.use(express.json());
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// Test endpoint
-app.get('/', (req, res) => {
-    res.send('Hello World! This is a test endpoint.');
+// MySQL connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    ***REMOVED***
+    ***REMOVED***
+    ***REMOVED***
 });
 
-// Example of a simple API endpoint
-app.get('/api/test', (req, res) => {
-    res.json({ message: 'This is a test API response.' });
+db.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to database');
+});
+
+// Registration endpoint
+app.post('/register', async (req, res) => {
+    const { name, email, password } = req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert user into database
+    const sql = 'INSERT INTO Users (username, email, password) VALUES (?, ?, ?)';
+    db.query(sql, [username, email, hashedPassword], (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send('Database error');
+        }
+        res.status(201).send('User registered successfully');
+    });
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
