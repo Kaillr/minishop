@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
                 domain: 'minishop.mikaelho.land'
             });
 
-            window.location.replace('minishop.mikaelho.land')
+            res.redirect('https://minishop.mikaelho.land');
         });
     } catch (error) {
         console.error('Error during login:', error);
