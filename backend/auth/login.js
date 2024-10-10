@@ -33,7 +33,8 @@ router.post('/login', async (req, res) => {
             res.cookie('userId', user.id, {
                 httpOnly: true,
                 secure: true,
-                domain: 'minishop.mikaelho.land'
+                domain: '.mikaelho.land',
+                sameSite: 'None'
             });
 
             res.redirect('https://minishop.mikaelho.land');
