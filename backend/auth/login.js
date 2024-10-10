@@ -30,8 +30,13 @@ router.post('/login', async (req, res) => {
             }
 
             // Set a cookie for minishop.mikaelho.land
-            res.cookie('userId', user.id, { httpOnly: true, secure: true, domain: 'minishop.mikaelho.land' });
-            
+            res.cookie('userId', user.id, {
+                httpOnly: true,
+                secure: true,
+                domain: 'minishop.mikaelho.land'
+            });
+
+            window.location.replace('minishop.mikaelho.land')
         });
     } catch (error) {
         console.error('Error during login:', error);
