@@ -149,7 +149,3 @@ CREATE TABLE Images (
 
 - **Security**: Always hash passwords before storing them in the database.
 - **Indexes**: Consider adding indexes to columns that are frequently queried, like `email`, and `product_name`, for better performance.
-
-## Shopping Cart Functionality
-
-To implement a shopping cart system, you need to create a mechanism to store products that users add to their cart before completing their purchase. Below are the modifications and SQL commands needed to incorporate a shopping cart into the existing schema.
