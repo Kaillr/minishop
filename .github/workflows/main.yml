@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:       
+    steps:
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
       with:
@@ -18,8 +18,7 @@ jobs:
         port: 22
         script: |
           cd /var/www/minishop/
-          git reset --hard HEAD
-          git fetch origin
-          git pull --ff-only origin main
-          git status
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd
           npm install --only=prod
