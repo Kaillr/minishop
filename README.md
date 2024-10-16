@@ -52,7 +52,7 @@ This document shows the concept for a shopping website database, including user 
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
-    last_nameVARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(320) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -145,7 +145,54 @@ CREATE TABLE Images (
   - `transaction_date`: Date and time of the credit transaction.
   - `type`: Indicates whether the credits were earned or spent.
 
+  - **Images Table**:
+  - `image_id`: Unique identifier for each image.
+  - `product_id`: Identifier of the associated product from the **Products Table** (can be NULL initially).
+  - `file_path`: Path or URL to the image file.
+  - `upload_date`: Date and time when the image was uploaded (defaults to the current timestamp).
+
+
 ## Additional Considerations
 
 - **Security**: Always hash passwords before storing them in the database.
 - **Indexes**: Consider adding indexes to columns that are frequently queried, like `email`, and `product_name`, for better performance.
+
+
+## 📝 Documentation
+
+### Project Structure
+
+Your project is structured into two main directories: `frontend` and `backend`. This separation promotes a clear organization of your codebase, making it easier to manage both the server-side logic and the client-side presentation.
+
+### Backend
+
+1. **server.js**: Main server file where the Express application is configured, including middleware and routes.
+2. **db/db.js**: Database connection file using MySQL.
+3. **routes**: Contains route files like `index.js`, `login.js`, `register.js`, and `users.js` to handle different endpoints.
+4. **Static Files**: All static files (CSS, JS) are served from the `frontend` directory.
+
+### Frontend
+
+1. **views**: Contains Handlebars templates like `index.hbs`, `login.hbs`, and `register.hbs` for rendering the user interface.
+2. **css**: Contains your CSS stylesheets.
+
+### Middleware in `server.js`
+
+- `app.use(express.json())`: Parses incoming JSON requests.
+- `app.use(express.urlencoded({ extended: true }))`: Parses incoming requests with URL-encoded payloads, allowing you to handle form submissions.
+
+### Routing
+
+The routes are set up to render the appropriate views, using the Handlebars templating engine for dynamic content.
+
+### SQL Database
+
+The database is structured to handle user information, products, orders, credits, and images, ensuring data integrity and efficient retrieval.
+
+### Version Control
+
+Use Git for version control. Commits should be descriptive, explaining the changes made to the codebase.
+
+### License
+
+This project is licensed under the MIT License, allowing for free use and distribution of the code.
