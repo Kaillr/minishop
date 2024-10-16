@@ -1,9 +1,11 @@
 const express = require("express");
-const path = require ("path");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/login.html'));
-})
+router.get("/", (req, res) => {
+    res.render("login", {
+        title: "Login - Minishop",
+    });
+
+});
 
 module.exports = router;

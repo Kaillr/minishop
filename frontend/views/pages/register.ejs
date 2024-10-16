@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minishop - Register</title>
+    <%- include("../partials/head") %>
 </head>
 <body>
+    <h1><a href="/">Minishop</a></h1>
+
     <form id="registrationForm" action="https://authminishop.mikaelho.land/register" method="POST">
         <label for="first_name">First name:</label>
         <input type="text" id="first_name" name="first_name" placeholder="Your first name" required>
@@ -19,13 +19,13 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
     
-        <label for="passwordConfirm">Confirm Password:</label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Enter your password" required>
+        <label for="passwordConfirm">Re-Enter password</label>
+        <input type="password" id="passwordConfirm" name="passwordConfirm" required>
     
         <button type="submit">Register</button>
     </form>
     
     
-Already have an account? <a href="/login" onclick="if (window.location.href.indexOf('localhost') !== -1) { this.href = 'login.html'; }">Login</a>
+Already have an account? <a href="/login">Login</a>
 </body>
 </html>

@@ -1,9 +1,13 @@
 const express = require("express");
-const path = require ("path");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/register.html'));
-})
+// Route for the registration page
+router.get("/", (req, res) => {
+    res.render("register", {
+        title: "Register - Minishop",
+    });
+});
 
+// Export the router
 module.exports = router;
+ 
