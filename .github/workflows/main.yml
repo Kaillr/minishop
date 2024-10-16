@@ -19,6 +19,7 @@ jobs:
         script: |
           cd /var/www/minishop/
           git reset --hard HEAD
-          git pull origin main
+          git fetch origin
+          git pull --ff-only origin main
           git status
           npm install --only=prod
