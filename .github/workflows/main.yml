@@ -18,7 +18,10 @@ jobs:
         port: 22
         script: |
           cd /var/www/minishop/
-          git fetch origin main
-          git reset --hard origin/main
+          git reset --hard HEAD
+          git pull origin main
           git clean -fd
+          git status
+          npm install --only=prod
+          cd backend
           npm install --only=prod
