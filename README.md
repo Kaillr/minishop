@@ -173,7 +173,7 @@ Your project is structured into two main directories: `frontend` and `backend`. 
 
 ### Frontend
 
-1. **views**: Contains Handlebars templates like `index.hbs`, `login.hbs`, and `register.hbs` for rendering the user interface.
+1. **views**: Contains Handlebars templates like `index.ejs`, `login.ejs`, and `register.ejs` for rendering the user interface.
 2. **css**: Contains your CSS stylesheets.
 
 ### Middleware in `server.js`
