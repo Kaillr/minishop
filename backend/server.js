@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Middleware to set query variable globally
 app.use((req, res, next) => {
+    res.locals.currentYear = new Date().getFullYear();
     res.locals.query = req.query.query || "";  // Set query globally for all views
     next();
 });
