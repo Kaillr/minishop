@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+header .nav {
+    display: flex;
+    align-items: center;
+}
+
+header ul {
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+}
+
+header .search {
+    width: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+header .search input {
+    width: 100%;
+}
+
+main {
+    padding: 20px 5%;
+    margin: 0 auto;
+}
+
+footer {
+    padding: 20px 5%;
+    margin-top: -1px;
+    border-top: 1px solid rgb(200, 200, 200);
+    text-align: center;
+}
