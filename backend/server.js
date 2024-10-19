@@ -14,7 +14,6 @@ const loginRoutes = require('./routes/login');
 const searchRoutes = require('./routes/search');
 const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
-const securityRoutes = require('./routes/security');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -62,7 +61,6 @@ app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/settings/profile", profileRoutes);
-app.use("/settings/security", securityRoutes);
 
 
 // Catch-all 404 handler for unavailable routes
