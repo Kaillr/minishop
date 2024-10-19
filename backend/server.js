@@ -13,6 +13,8 @@ const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const searchRoutes = require('./routes/search');
 const logoutRoutes = require('./routes/logout');
+const profileRoutes = require('./routes/profile');
+const securityRoutes = require('./routes/security');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,8 +27,6 @@ app.set("views", path.join(__dirname, '../frontend/views/pages'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the frontend directory
-app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Session middleware
 const sessionStore = new MySQLStore({}, db);
@@ -61,6 +61,9 @@ app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);
+app.use("/settings/profile", profileRoutes);
+app.use("/settings/security", securityRoutes);
+
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {

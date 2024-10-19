@@ -21,6 +21,7 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.3",
+    "npm": "^10.9.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

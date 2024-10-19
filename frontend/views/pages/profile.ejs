@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head") %>
+    <title>Profile</title>
+</head>
+<body>
+    <%- include("../partials/header") %>
+
+    <main>
+        <h2>Profile</h2>
+        <p>Welcome, <%= firstName %></p>
+        <a href="/settings/profile">Edit Profile</a>
+        <a href="/settings/orders">My Orders</a>
+        <a href="/settings/change-password">Change Password</a>
+        <a href="/logout">Logout</a>
+    </main>
+
+    <%- include("../partials/footer") %>
+</body>
+</html>
