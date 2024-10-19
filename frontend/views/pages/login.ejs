@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include("../partials/head") %>
 </head>
+
 <body>
     <h1><a href="/">Minishop</a></h1>
-    <form id="loginForm" action="https://minishop.mikaelho.land/login" method="POST">
+
+    <form id="loginForm" action="/login" method="POST">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Enter your email" required>
     
@@ -14,6 +17,12 @@
     
         <button type="submit">Login</button>
     </form>
-Don't have an account? <a href="/register">Register</a>
+
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    Don't have an account? <a href="/register">Register</a>
 </body>
+
 </html>

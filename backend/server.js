@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
 const path = require("path");
 const dotenv = require("dotenv");
 
@@ -25,12 +27,32 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Middleware to set query variable globally
+// Session middleware
+const sessionStore = new MySQLStore({}, db);
+
+app.use(session({
+    key: 'minishop_session',
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24, // Expires after 24 hours
+        secure: false // Secure only works over HTTPS
+    }
+}));
+
+// Middleware for variables
 app.use((req, res, next) => {
     res.locals.currentYear = new Date().getFullYear();
-    res.locals.query = req.query.query || "";  // Set query globally for all views
+    res.locals.query = req.query.query || "";
+    res.locals.userId = req.session.userId;
+    res.locals.firstName = req.session.firstName;
     next();
 });
+
+// Serve static files from the frontend directory
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Define routes
 app.use("/", indexRoutes);
