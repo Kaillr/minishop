@@ -12,6 +12,7 @@ const indexRoutes = require('./routes/index');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const searchRoutes = require('./routes/search');
+const logoutRoutes = require('./routes/logout');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -59,6 +60,7 @@ app.use("/", indexRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
+app.use("/logout", logoutRoutes);
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {
