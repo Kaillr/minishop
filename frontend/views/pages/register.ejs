@@ -8,7 +8,7 @@
 <body>
     <h1><a href="/">Minishop</a></h1>
 
-    <form id="registrationForm" action="https://minishop.mikaelho.land/register" method="POST">
+    <form id="registrationForm" action="/register" method="POST">
         <label for="first_name">First name:</label>
         <input type="text" id="first_name" name="first_name" placeholder="Your first name" required>
 
@@ -27,20 +27,11 @@
         <button type="submit">Register</button>
     </form>
 
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
 
     Already have an account? <a href="/login">Login</a>
-
-    <script>
-        document.getElementById('registrationForm').onsubmit = function() {
-            const password = document.getElementById('password').value;
-            const passwordConfirm = document.getElementById('passwordConfirm').value;
-            if (password !== passwordConfirm) {
-                alert("Passwords do not match.");
-                return false; // Prevent form submission
-            }
-            return true; // Allow form submission
-        };
-    </script>
 </body>
 
 </html>
