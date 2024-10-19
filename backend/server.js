@@ -39,7 +39,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24, // Expires after 24 hours
-        secure: false // Secure only works over HTTPS
+        secure: true // Secure only works over HTTPS
     }
 }));
 
