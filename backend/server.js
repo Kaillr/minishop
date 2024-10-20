@@ -1,16 +1,20 @@
+// Import necessary modules
 const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const path = require("path");
 const dotenv = require("dotenv");
 
+// Load environment variables from .env file
 dotenv.config({ path: '../.env' });
 
+// Import database connection
 const db = require('./db/db');
 
 // Import middleware
 const fetchUserDetails = require("./middleware/fetchUserDetails");
 
+// Import routes
 const indexRoutes = require('./routes/index');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
@@ -19,11 +23,12 @@ const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
 const securityRoutes = require('./routes/security');
 
+// Initialize Express app
 const app = express();
 const port = process.env.PORT || 3000;
-app.set('trust proxy', true);
 
-// Set EJS as the templating engine
+// Configure EJS as the templating engine
+app.set('trust proxy', true);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, '../frontend/views/pages'));
 
@@ -31,10 +36,8 @@ app.set("views", path.join(__dirname, '../frontend/views/pages'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// Session middleware
+// Configure session middleware
 const sessionStore = new MySQLStore({}, db);
-
 app.use(session({
     key: 'minishop_session',
     secret: process.env.SESSION_SECRET,
@@ -50,11 +53,11 @@ app.use(session({
 // Middleware to fetch user details from the database
 app.use(fetchUserDetails);
 
+// Middleware for additional variables in views
 app.use((req, res, next) => {
     res.locals.currentYear = new Date().getFullYear();
     res.locals.query = req.query.query || "";
     res.locals.userId = req.session.userId;
-    res.locals.firstName = req.session.firstName;
     next();
 });
 
