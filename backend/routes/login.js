@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 router.get("/", (req, res) => {
     res.render("login", {
         title: "Login - Minishop",
-        error: null,  // Initialize error as null
     });
 });
 
@@ -25,29 +24,19 @@ router.post("/", async (req, res) => {
             // Compare the entered password with the hashed password in the database
             const match = await bcrypt.compare(password, user.password);
             if (match) {
-                // Save user info in session
                 req.session.userId = user.user_id;
-                req.session.firstName = user.first_name;
-
-                // Redirect to a dashboard or homepage
-                return res.redirect("/");
+                res.status(200).json({ message: "User logged in successfully!" });
             } else {
                 // Password did not match
-                return res.render("login", {
-                    title: "Login - Minishop",
-                    error: "Incorrect email or password."  // Pass the error message to the view
-                });
+                return res.status(400).json({ error: "Password did not match." });
             }
         } else {
             // No user found with that email
-            return res.render("login", {
-                title: "Login - Minishop",
-                error: "Incorrect email or password."  // Pass the error message to the view
-            });
+            return res.status(400).json({ error: "Email not found" });
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("An error occurred while logging in.");
+        res.status(500).json({ error: "An error occurred while logging in." });
     }
 });
 
