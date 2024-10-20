@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head") %>
+</head>
+
+<body>
+    <%- include("../partials/header") %>
+
+    <main>
+        <h2>Profile - Security</h2>
+        
+        <form id="changePasswordForm">
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword" name="currentPassword" required>
+
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+
+            <label for="confirmPassword">Confirm New Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <button type="submit">Change Password</button>
+        </form>
+
+        <div id="error" style="color: red;"></div>
+        <div id="message" style="color: green;"></div>
+
+        <a href="/settings/profile">Edit Profile</a>
+        <a href="/settings/orders">My Orders</a>
+        <a href="/settings/security">Change Password</a>
+        <a href="/logout">Logout</a>
+    </main>
+
+    <%- include("../partials/footer") %>
+
+    <script src="/js/changePassword.js"></script>
+
+</body>
+
+</html>
