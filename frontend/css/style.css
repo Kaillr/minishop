@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    list-style-type: none;
 }
 
 header {
@@ -18,7 +19,6 @@ header .nav {
 
 header ul {
     display: flex;
-    list-style-type: none;
     gap: 20px;
 }
 

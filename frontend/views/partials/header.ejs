@@ -4,10 +4,10 @@
         <input type="text" name="query" placeholder="Search..." value="<%= query %>">
         <button type="submit">Search</button>
     </form>
+    <li>Welcome, <%= firstName %></li>
     <nav>
         <ul>
             <% if (userId) { %>
-            <li>Welcome, <%= firstName %></li>
             <li><a href="/settings/profile">Profile</a></li>
             <% } else { %>
             <li><a href="/login">Login</a></li>
