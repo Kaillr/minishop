@@ -10,11 +10,11 @@ const fetchUserDetails = (req, res, next) => {
                 if (userRows.length > 0) {
                     const user = userRows[0];
                     // Attach user details to res.locals for use in templates
-                    res.locals.firstName = user.first_name;
-                    res.locals.lastName = user.last_name;
-                    res.locals.email = user.email;
-                    res.locals.phoneNumber = user.phone_number;
-                    res.locals.password = user.password;
+                    res.locals.firstName = user.first_name || '';
+                    res.locals.lastName = user.last_name || '';
+                    res.locals.email = user.email || '';
+                    res.locals.phoneNumber = user.phone_number || '';
+                    res.locals.password = user.password || '';
                 }
                 // Proceed to fetch address details
                 return db.promise()
