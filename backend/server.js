@@ -8,6 +8,9 @@ dotenv.config({ path: '../.env' });
 
 const db = require('./db/db');
 
+// Import middleware
+const fetchUserDetails = require("./middleware/fetchUserDetails");
+
 const indexRoutes = require('./routes/index');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
@@ -43,7 +46,9 @@ app.use(session({
     }
 }));
 
-// Middleware for variables
+// Middleware to fetch user details from the database
+app.use(fetchUserDetails);
+
 app.use((req, res, next) => {
     res.locals.currentYear = new Date().getFullYear();
     res.locals.query = req.query.query || "";
