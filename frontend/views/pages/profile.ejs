@@ -1,21 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include("../partials/head") %>
-    <title>Profile</title>
 </head>
+
 <body>
     <%- include("../partials/header") %>
 
     <main>
         <h2>Profile</h2>
-        <p>Welcome, <%= firstName %></p>
+        <p>Welcome, <%= firstName %></p><br>
+
+
+        <h3>Edit Profile Details</h3>
+        <form id="userDetailsForm" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= email %>" required><br><br>
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" value="<%= phoneNumber %>"><br><br>
+            <div style="display: flex; gap: 5px;">
+                <input type="submit" value="Update">
+                <div id="error" style="color: red;"></div>
+                <div id="message" style="color: green;"></div>
+            </div>
+        </form><br>
+
+        <h3>Edit Address Details</h3>
+        <form id="addressDetailsForm" method="post">
+            <label for="address_line1">Address Line 1:</label>
+            <input type="text" id="address_line1" name="address_line1" value="<%= addressLine1 %>" required><br><br>
+
+            <label for="address_line2">Address Line 2 (Optional):</label>
+            <input type="text" id="address_line2" name="address_line2" value="<%= addressLine2 %>"><br><br>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" value="<%= city %>" required><br><br>
+
+            <label for="state">State (Optional):</label>
+            <input type="text" id="state" name="state" value="<%= state %>"><br><br>
+
+            <label for="postal_code">Postal Code:</label>
+            <input type="text" id="postal_code" name="postal_code" value="<%= postalCode %>" required><br><br>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" value="<%= country %>" required><br><br>
+
+            <div style="display: flex; gap: 5px;">
+                <input type="submit" value="Update">
+                <div id="error" style="color: red;"></div>
+                <div id="message" style="color: green;"></div>
+            </div>
+        </form><br>
+
         <a href="/settings/profile">Edit Profile</a>
         <a href="/settings/orders">My Orders</a>
-        <a href="/settings/change-password">Change Password</a>
+        <a href="/settings/security">Change Password</a>
         <a href="/logout">Logout</a>
     </main>
 
     <%- include("../partials/footer") %>
+
+    <script src="/js/profile.js"></script>
+
 </body>
+
 </html>
