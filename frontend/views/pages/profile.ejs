@@ -15,9 +15,9 @@
 
         <h3>Edit Profile Details</h3>
         <form id="userDetailsForm" method="post">
-            <label for="email">Email:</label>
+            <label for="email">Email*</label><br>
             <input type="email" id="email" name="email" value="<%= email %>" required><br><br>
-            <label for="phone">Phone:</label>
+            <label for="phone">Phone</label><br>
             <input type="tel" id="phone" name="phone" value="<%= phoneNumber %>"><br><br>
             <div style="display: flex; gap: 5px;">
                 <input type="submit" value="Update">
@@ -28,22 +28,22 @@
 
         <h3>Edit Address Details</h3>
         <form id="addressDetailsForm" method="post">
-            <label for="address_line1">Address Line 1:</label>
-            <input type="text" id="address_line1" name="address_line1" value="<%= addressLine1 %>" required><br><br>
+            <label for="address_line1">Address Line 1*</label><br>
+            <input type="text" id="address_line1" name="address_line1" value="<%= addressLine1 || '' %>" required><br><br>
 
-            <label for="address_line2">Address Line 2 (Optional):</label>
+            <label for="address_line2">Address Line 2</label><br>
             <input type="text" id="address_line2" name="address_line2" value="<%= addressLine2 %>"><br><br>
 
-            <label for="city">City:</label>
+            <label for="city">City*</label><br>
             <input type="text" id="city" name="city" value="<%= city %>" required><br><br>
 
-            <label for="state">State (Optional):</label>
+            <label for="state">State</label><br>
             <input type="text" id="state" name="state" value="<%= state %>"><br><br>
 
-            <label for="postal_code">Postal Code:</label>
+            <label for="postal_code">Postal Code*</label><br>
             <input type="text" id="postal_code" name="postal_code" value="<%= postalCode %>" required><br><br>
 
-            <label for="country">Country:</label>
+            <label for="country">Country*</label><br>
             <input type="text" id="country" name="country" value="<%= country %>" required><br><br>
 
             <div style="display: flex; gap: 5px;">
