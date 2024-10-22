@@ -22,6 +22,8 @@ const searchRoutes = require('./routes/search');
 const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
 const securityRoutes = require('./routes/security');
+const adminRoutes = require('./routes/admin');
+const imageRoutes = require("./routes/imageRoutes");
 
 // Initialize Express app
 const app = express();
@@ -46,7 +48,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24, // Expires after 24 hours
-        secure: true // Secure only works over HTTPS
+        secure: process.env.COOKIE_SECURE // Secure only works over HTTPS
     }
 }));
 
@@ -72,6 +74,7 @@ app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/settings/profile", profileRoutes);
 app.use("/settings/security", securityRoutes);
+app.use("/admin", adminRoutes);
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {
