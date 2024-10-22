@@ -23,16 +23,24 @@ const fetchUserDetails = (req, res, next) => {
             .then(([addressRows]) => {
                 if (addressRows.length > 0) {
                     const address = addressRows[0];
-                    // Attach address details to res.locals for use in templates
-                    res.locals.addressLine1 = address.address_line1 || ''; // Default to empty string if null
-                    res.locals.addressLine2 = address.address_line2 || ''; // Default to empty string if null
-                    res.locals.city = address.city || ''; // Default to empty string if null
-                    res.locals.state = address.state || ''; // Default to empty string if null
-                    res.locals.postalCode = address.postal_code || ''; // Default to empty string if null
-                    res.locals.country = address.country || ''; // Default to empty string if null
+                    res.locals.addressLine1 = address.address_line1 != null ? address.address_line1 : ''; 
+                    res.locals.addressLine2 = address.address_line2 != null ? address.address_line2 : ''; 
+                    res.locals.city = address.city != null ? address.city : ''; 
+                    res.locals.state = address.state != null ? address.state : ''; 
+                    res.locals.postalCode = address.postal_code != null ? address.postal_code : ''; 
+                    res.locals.country = address.country != null ? address.country : '';
+                } else {
+                    // No address found, set defaults
+                    res.locals.addressLine1 = '';
+                    res.locals.addressLine2 = '';
+                    res.locals.city = '';
+                    res.locals.state = '';
+                    res.locals.postalCode = '';
+                    res.locals.country = '';
                 }
                 next(); // Continue to the next middleware or route handler
             })
+            
             .catch((error) => {
                 console.error("Error fetching user or address details: ", error);
                 next(); // Continue even if there's an error
