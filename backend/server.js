@@ -22,8 +22,6 @@ const searchRoutes = require('./routes/search');
 const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
 const securityRoutes = require('./routes/security');
-const adminRoutes = require('./routes/admin');
-const imageRoutes = require("./routes/imageRoutes");
 
 // Initialize Express app
 const app = express();
@@ -74,7 +72,6 @@ app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/settings/profile", profileRoutes);
 app.use("/settings/security", securityRoutes);
-app.use("/admin", adminRoutes);
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {
