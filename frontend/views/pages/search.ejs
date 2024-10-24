@@ -3,16 +3,43 @@
 
 <head>
     <%- include("../partials/head") %>
+    <link rel="stylesheet" href="/css/search.css">
 </head>
 
 <body>
     <%- include("../partials/header") %>
 
     <main>
-        <div class="search-results"></div>
+        <div id="search-results" class="search-results">
+            <% if (results.length > 0) { %>
+            <% results.forEach(product => { %>
+            <div class="product-card">
+                <div class="picture" style="background-image: url('<%= product.image_path.replace(/\\/g, '/') %>');" alt="<%= product.product_name %>"></div> <!-- thanks chatgpt for the help <3 -->
+
+                <p></p>
+                <div class="lower">
+                    <h3><%= product.product_name %></h3>
+                    <div class="rating">
+                        <box-icon name='star' type='solid' color='#c8c8c8' ></box-icon>
+                        <box-icon name='star' type='solid' color='#c8c8c8' ></box-icon>
+                        <box-icon name='star' type='solid' color='#c8c8c8' ></box-icon>
+                        <box-icon name='star' type='solid' color='#c8c8c8' ></box-icon>
+                        <box-icon name='star' type='solid' color='#c8c8c8' ></box-icon>
+                        <span class="rating-overlay"></span>
+                    </div>
+                    <p>$<%= product.price %></p>
+                </div>
+            </div>
+            <% }); %>
+            <% } else { %>
+            <p>No products found.</p>
+            <% } %>
+        </div>
     </main>
 
     <%- include("../partials/footer") %>
+    <%- include("../partials/scripts") %>
+    <script src="/js/search.js"></script>
 </body>
 
 </html>

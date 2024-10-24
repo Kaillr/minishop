@@ -23,7 +23,6 @@ const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
 const securityRoutes = require('./routes/security');
 const adminRoutes = require('./routes/admin');
-const imageRoutes = require("./routes/imageRoutes");
 
 // Initialize Express app
 const app = express();
@@ -48,7 +47,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24, // Expires after 24 hours
-        secure: process.env.COOKIE_SECURE // Secure only works over HTTPS
+        secure: true, // Secure only works over HTTPS
+        httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
     }
 }));
 
@@ -65,6 +65,7 @@ app.use((req, res, next) => {
 
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Define routes
 app.use("/", indexRoutes);

@@ -1,30 +1,16 @@
-document.getElementById("searchForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission behavior
     
-    const query = document.getElementById("searchInput").value; // Get search input
-    const response = await fetch(`/search?q=${query}`); // Send AJAX request
-    const products = await response.json(); // Parse JSON response
+    const query = this.querySelector('input[name="query"]').value;
 
-    renderProductCards(products); // Render the product cards
+    console.log(query);
+
+    // Only search if the input has a minimum length (e.g., 2 characters)
+    if (query.length < 2) {
+        document.getElementById("search-results").innerHTML = '';
+        return;
+    }
+
+    // Redirect to the search page with the query
+    window.location.href = `/search?query=${encodeURIComponent(query)}`;
 });
-
-function renderProductCards(products) {
-    const resultsContainer = document.getElementById("search-results");
-    resultsContainer.innerHTML = ""; // Clear previous results
-
-    products.forEach(product => {
-        // Create product card HTML
-        const card = `
-            <div class="product-card">
-                <img src="${product.image_path}" alt="${product.product_name}">
-                <h3>${product.product_name}</h3>
-                <p>${product.description}</p>
-                <span class="price">$${product.price}</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-        `;
-
-        // Append the card to the results container
-        resultsContainer.innerHTML += card;
-    });
-}
