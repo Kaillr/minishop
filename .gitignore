@@ -2,3 +2,8 @@ node_modules/
 .env
 .vscode/
 package-lock.json
+
+
+#directories
+/uploads/
+backend/package-lock.json

@@ -1,0 +1,55 @@
+.search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Each item at least 200px wide */
+    gap: 10px; /* 10px gap between items */
+    justify-items: center;
+    max-width: calc(3 * 300px + 2 * 10px); /* Max-width for 3 items + 2 gaps of 10px */
+    margin: 0 auto; /* Center the grid container */
+}
+.product-card {
+    box-sizing: border-box;
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    
+    padding: 10px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-card .picture {
+    width: 100%;
+    padding-bottom: 100%; /* height equals to width */
+    color: red;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.product-card .rating {
+    display: flex;
+    height: 16px;
+    position: relative;
+    width: fit-content;
+}
+
+.product-card .rating box-icon {
+    height: 100%;
+    width: auto;
+}
+
+.product-card .rating .rating-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%; /* Adjust this based on the rating value */
+    height: 100%;
+    background-color: gold; /* Color for the filled portion */
+    display: flex;
+    overflow: hidden;
+    display: none;
+}
