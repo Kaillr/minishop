@@ -16,6 +16,7 @@
             <div id="search-results" class="search-results">
             <% results.forEach(product => { %>
             <div class="product-card" title="<%- product.product_id %>">
+                <a href="/product/<%= product.product_id %>/<%= encodeURIComponent(product.brand).replace(/%20/g, '+') %>+<%= encodeURIComponent(product.product_name).replace(/%20/g, '+') %>"></a>
 
                 <div class="picture" style="background-image: url('<%= product.image_path.replace(/\\/g, '/') %>');" alt="<%= product.product_name %>"></div> <!-- thanks chatgpt for the help <3 -->
 

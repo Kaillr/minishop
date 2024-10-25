@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head") %>
+    <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+    <%- include("../partials/header") %>
+    
+    <main>
+        <section class="product-details">
+            <div class="product-image">
+                <img src="<%= product.image_path %>" alt="<%= product.product_name %>">
+            </div>
+            <div class="product-info">
+                <h2>Price: $<%= product.price %></h2>
+                <p><%= product.description %></p>
+                <button>Add to Cart</button> <!-- Implement your cart functionality -->
+            </div>
+        </section>
+    </main>
+
+    <%- include("../partials/footer") %>
+    <%- include("../partials/scripts") %>
+</body>
+</html>

@@ -23,6 +23,7 @@ const logoutRoutes = require('./routes/logout');
 const profileRoutes = require('./routes/profile');
 const securityRoutes = require('./routes/security');
 const adminRoutes = require('./routes/admin');
+const productRoutes = require("./routes/products");
 
 // Initialize Express app
 const app = express();
@@ -76,6 +77,7 @@ app.use("/logout", logoutRoutes);
 app.use("/settings/profile", profileRoutes);
 app.use("/settings/security", securityRoutes);
 app.use("/admin", adminRoutes);
+app.use("/product", productRoutes);
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {
