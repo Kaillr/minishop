@@ -5,12 +5,12 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
 
     console.log(query);
 
+    // Redirect to the search page with the query
+    
     // Only search if the input has a minimum length (e.g., 2 characters)
     if (query.length < 2) {
         document.getElementById("search-results").innerHTML = '';
         return;
     }
-
-    // Redirect to the search page with the query
-    window.location.href = `/search?query=${encodeURIComponent(query)}`;
+    window.location.href = `/search?query=${encodeURIComponent(query).replace(/%20/g, '+')}`;
 });

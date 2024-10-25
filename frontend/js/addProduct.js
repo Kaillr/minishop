@@ -1,12 +1,14 @@
 document.getElementById("addProductForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const brand = document.getElementById("brand").value;
     const name = document.getElementById("name").value;
     const description = document.getElementById("description").value;
     const price = document.getElementById("price").value;
     const image = document.getElementById("image").files[0];
 
     const formData = new FormData();
+    formData.append("brand", brand);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("price", price);

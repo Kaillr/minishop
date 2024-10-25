@@ -5,14 +5,22 @@ const db = require("../db/db");
 // Route for handling search queries
 router.get("/", async (req, res) => {
     const query = req.query.query || ""; // Get the query from the request URL
+    const words = query.trim().split(/\s+/); // Split query into words based on spaces
 
     let results = []; // Initialize results array
-    if (query) {
+    if (words.length > 0) {
+        // Create dynamic SQL query with multiple AND conditions for each word
+        const sqlQuery = `
+            SELECT brand, product_name, description, price, image_path, product_id
+            FROM products 
+            WHERE ${words.map(() => "(product_name LIKE ? OR brand LIKE ?)").join(" AND ")}
+        `;
+
+        // Create an array of parameters for the SQL query
+        const sqlParams = words.flatMap(word => [`%${word}%`, `%${word}%`]);
+
         try {
-            const [rows] = await db.promise().query(
-                "SELECT product_name, description, price, image_path FROM products WHERE product_name LIKE ?",
-                [`%${query}%`]
-            );
+            const [rows] = await db.promise().query(sqlQuery, sqlParams);
             results = rows; // Set results to the fetched rows
 
             // Render the search page with results
