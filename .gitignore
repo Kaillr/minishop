@@ -1,9 +1,9 @@
-node_modules/
-.env
-.vscode/
-package-lock.json
-
-
 #directories
+node_modules/
+.vscode/
+package-lock.json/
 /uploads/
-backend/package-lock.json
+
+#files
+.env
+
