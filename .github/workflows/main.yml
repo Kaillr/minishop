@@ -24,4 +24,6 @@ jobs:
           git status
           npm install --only=prod
           cd backend
+          git status
           npm install --only=prod
+          pm2 restart ./server.js --name minishop --watch
