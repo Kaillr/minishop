@@ -16,7 +16,7 @@ document.getElementById("addProductForm").addEventListener("submit", async funct
 
     try {
         // Make AJAX POST request to upload the product and image
-        const response = await fetch("/admin/add", {
+        const response = await fetch("https://minishop.mikaelho.land/admin/add", {
             method: "POST",
             body: formData,
         });
