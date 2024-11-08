@@ -1,10 +1,46 @@
+:root {
+    --body-font-family: Open Sans;
+    --title-font-family: Roboto Slab;
+}
+
 * {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
+/* h1, h2, h3, h4, h5, h6 {
+    font-family: var(--title-font-family);
+} */
+
+@font-face {
+    font-family: Montserrat;
+    src: url(/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Montserrat Italic;
+    src: url(/assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Open Sans;
+    src: url(/assets/fonts/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: Open Sans Italic;
+    src: url(/assets/fonts/OpenSans/OpenSans-Italic-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: Roboto Slab;
+    src: url(/assets/fonts/RobotoSlab/RobotoSlab-VariableFont_wght.ttf);
+}
+
+
 header {
+    font-weight: 500;
     display: flex;
     justify-content: space-between;
     align-items: center;
