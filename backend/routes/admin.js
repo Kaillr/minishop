@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Route for adding a product, including image upload
-router.post("/add", upload.single('image'), isAuthenticated, isAdmin, async (req, res) => {
+router.post("/products/add", upload.single('image'), isAuthenticated, isAdmin, async (req, res) => {
     const { brand, name, description, price } = req.body;
     console.log("Received product data:", req.body);
     
