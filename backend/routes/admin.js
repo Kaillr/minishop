@@ -32,6 +32,18 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+async function deleteProductFromDatabase(req, res) {
+    try {
+        await db.promise().query("DELETE FROM products WHERE product_id = ?", [req.body.product_id]);
+        res.json({ message: "Product deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting product: ", error);
+        res.status(500).json({ error: "An error occurred while deleting the product." });
+    }
+}
+
+
+
 // Route for adding a product, including image upload
 router.post("/products/add", upload.single('image'), isAuthenticated, isAdmin, async (req, res) => {
     const { brand, name, description, price } = req.body;
@@ -66,5 +78,16 @@ router.post("/products/add", upload.single('image'), isAuthenticated, isAdmin, a
         });
     }
 });
+
+router.post('/products/delete', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        await deleteProductFromDatabase(req, res); // Pass req and res
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).json({ error: "Failed to delete product. Please try again." });
+    }
+});
+
+
 
 module.exports = router;
