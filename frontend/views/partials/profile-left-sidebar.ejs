@@ -1,0 +1,59 @@
+<div class="left-sidebar">
+    <nav>
+        <ol>
+            <li>
+                <a href="/settings/profile">
+                    <span>Edit profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="/settings/security">
+                    <span>Change password</span>
+                </a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a href="#">
+                    <span>My orders</span>
+                </a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <% if (user.isAdmin) { %>
+            <li>
+                <a href="/settings/admin/products">
+                    <span>Manage products</span>
+                </a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <% } %>
+            <li>
+                <a href="/logout">
+                    <span>Sign out</span>
+                </a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<script>
+    // Get the current page URL
+    const currentUrl = window.location.pathname;
+
+    // Select all anchor tags inside the sidebar
+    const links = document.querySelectorAll('.left-sidebar a');
+
+    // Loop through each link and compare its href with the current URL
+    links.forEach(link => {
+        // Check if the href matches the current URL
+        if (link.getAttribute('href') === currentUrl) {
+            // Add the 'current' class to the parent li of the matching link
+            link.closest('li').classList.add('current');
+        }
+    });
+</script>

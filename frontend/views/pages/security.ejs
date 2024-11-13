@@ -3,34 +3,33 @@
 
 <head>
     <%- include("../partials/head") %>
+    <link rel="stylesheet" href="/css/settings.css">
 </head>
 
 <body>
     <%- include("../partials/header") %>
 
     <main>
-        <h2>Profile - Security</h2>
-        
-        <form id="changePasswordForm">
-            <label for="currentPassword">Current Password</label><br>
-            <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+        <%- include("../partials/profile-left-sidebar") %>
+        <div id="content">
+            <h2>Profile Security</h2>
 
-            <label for="newPassword">New Password</label><br>
-            <input type="password" id="newPassword" name="newPassword" required><br><br>
+            <form id="changePasswordForm">
+                <label for="currentPassword">Current Password</label><br>
+                <input type="password" id="currentPassword" name="currentPassword" required><br><br>
 
-            <label for="confirmPassword">Confirm New Password</label><br>
-            <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+                <label for="newPassword">New Password</label><br>
+                <input type="password" id="newPassword" name="newPassword" required><br><br>
 
-            <button type="submit">Change Password</button>
-        </form>
+                <label for="confirmPassword">Confirm New Password</label><br>
+                <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
 
-        <div id="error" style="color: red;"></div>
-        <div id="message" style="color: green;"></div><br><br>
+                <button type="submit">Change Password</button>
+            </form>
 
-        <a href="/settings/profile">Edit Profile</a>
-        <a href="/settings/orders">My Orders</a>
-        <a href="/settings/security">Change Password</a>
-        <a href="/logout">Logout</a>
+            <div id="error" style="color: red;"></div>
+            <div id="message" style="color: green;"></div>
+        </div>
     </main>
 
     <%- include("../partials/footer") %>
