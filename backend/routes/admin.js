@@ -6,11 +6,16 @@ const db = require("../db/db");
 const { isAuthenticated, isAdmin } = require("../middleware/authMiddleware");
 const fs = require("fs");
 
-router.get("/", (req, res) => {
-    res.render("admin", {
 router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
+    const [rows] = await db.promise().query(`
+        SELECT brand, product_name, description, price, image_path, product_id
+        FROM products
+    `);
+    const results = rows
+
     res.render("admin/products", {
         title: "Dashboard - Minishop",
+        products: results
     });
 
 });
@@ -28,7 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Route for adding a product, including image upload
-router.post("/add", upload.single('image'), async (req, res) => {
+router.post("/add", upload.single('image'), isAuthenticated, isAdmin, async (req, res) => {
     const { brand, name, description, price } = req.body;
     console.log("Received product data:", req.body);
     

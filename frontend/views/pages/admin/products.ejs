@@ -33,6 +33,37 @@
 
                 <button type="submit">Add Product</button>
             </form><br>
+
+            <h3>Products Table</h3>
+
+            <input type="text" id="filterInput" placeholder="Filter by keyword">
+            <table id="productsTable">
+                <thead>
+                    <tr style="text-align: left;">
+                        <th>ID</th>
+                        <th>Brand</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.product_id %></td>
+                        <td><%= product.brand %></td>
+                        <td><%= product.product_name %></td>
+                        <td><%= product.description %></td>
+                        <td><%= product.price %></td>
+                        <td>
+                            <button data-id="<%= product.product_id %>">Edit</button>
+                            <button data-id="<%= product.product_id %>">Delete</button>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
         </div>
     </main>
 
