@@ -53,9 +53,6 @@ app.use(session({
     }
 }));
 
-// Middleware to fetch user details from the database
-app.use(fetchUserDetails);
-
 // Middleware for additional variables in views
 app.use((req, res, next) => {
     res.locals.currentYear = new Date().getFullYear();
@@ -69,15 +66,15 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Define routes
-app.use("/", indexRoutes);
+app.use("/", fetchUserDetails, indexRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);
+app.use("/product", productRoutes);
 app.use("/settings/profile", profileRoutes);
 app.use("/settings/security", securityRoutes);
-app.use("/admin", adminRoutes);
-app.use("/product", productRoutes);
+app.use("/settings/admin", adminRoutes);
 
 // Catch-all 404 handler for unavailable routes
 app.use((req, res, next) => {

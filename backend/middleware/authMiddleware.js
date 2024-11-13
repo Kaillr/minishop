@@ -6,11 +6,11 @@ function isAuthenticated(req, res, next) {
 }
 
 // Check if the user is an admin
-/* function isAdmin(req, res, next) {
-    if (req.session.admin === true) {
-        return next(); // User is an admin
+const isAdmin = (req, res, next) => {
+    if (res.locals.user && res.locals.user.isAdmin) {
+        return next(); // User is an admin, proceed with the request
     }
-    res.redirect("/"); // Redirect to home if not an admin
-} */
+    res.redirect('/'); // Redirect to home if the user is not an admin
+};
 
-module.exports = isAuthenticated;
+module.exports = { isAuthenticated, isAdmin };

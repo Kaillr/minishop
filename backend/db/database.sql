@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(320) NOT NULL UNIQUE,
     phone_number VARCHAR(20),  -- Optional
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    role ENUM('user', 'admin') DEFAULT 'user'
 );
 
 /* Stores user's address information */

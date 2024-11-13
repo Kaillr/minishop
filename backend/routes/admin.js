@@ -3,10 +3,13 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const db = require("../db/db");
+const { isAuthenticated, isAdmin } = require("../middleware/authMiddleware");
 const fs = require("fs");
 
 router.get("/", (req, res) => {
     res.render("admin", {
+router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
+    res.render("admin/products", {
         title: "Dashboard - Minishop",
     });
 
