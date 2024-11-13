@@ -21,7 +21,7 @@ main {
 }
 
 .left-sidebar li a:hover {
-    background-color: rgba(127, 127, 127, 0.2);
+    background-color: rgba(0, 0, 0, .05);
 }
 
 .left-sidebar .divider {
