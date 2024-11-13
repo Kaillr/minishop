@@ -1,63 +1,126 @@
-main {
-    max-width: calc(3 * 300px + 2 * 10px); /* Max-width for 3 items + 2 gaps of 10px */
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.search-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Each item at least 200px wide */
-    gap: 10px; /* 10px gap between items */
-    justify-items: center;
-    width: 100%;
-    margin: 0 auto; /* Center the grid container */
+.product-wrapper {
+    box-sizing: border-box;
+    width: calc(100% / 4);
+    padding: 4px;
 }
+
+@media (max-width: 1024px) {
+    .product-wrapper {
+        width: calc(100% / 2);
+    }
+}
+
 .product-card {
     box-sizing: border-box;
-    max-width: 300px;
-    width: 100%;
-    height: auto;
     
     padding: 10px;
-    border: 1px solid rgb(200, 200, 200);
-    border-radius: 4px;
+    background-color: white;
 
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
 
     position: relative;
+    filter: brightness(0.97);
+    font-weight: bold;
+    transition: outline .1s ease-out, box-shadow .1s ease-out, transform .1s ease-out, filter .1s ease-out;
+    outline: 0 white;
+}
+
+.product-card:hover {
+    filter: brightness(0.972);
+    transform: scale(1.02);
+    outline: 6px solid white;
+    outline-offset: -3px;
+    box-shadow: 0 0 40px -20px black;
+    z-index: 1;
 }
 
 .product-card .picture {
     width: 100%;
-    padding-bottom: 100%; /* height equals to width */
+    padding-bottom: 66%; /* height equals to width */
     color: red;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.product-card .rating {
+.product-card .upper {
     display: flex;
-    height: 16px;
+    justify-content: space-between;
+    z-index: 1;
+    cursor: auto;
+}
+
+.product-card .upper button {
+    height: fit-content;
+    width: auto;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.product-card .upper .favorite {
+    font-size: 24px;
+}
+
+.product-card .upper .add-to-cart {
+    font-size: 28px;
+}
+
+.product-card .lower {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .brand {
+    opacity: .6;
+}
+
+.product-card .product-name {
+    font-size: 18px;
+    height: 45px;
+}
+
+.product-card .price {
+    font-size: 26px;
+    margin-top: 10px;
+}
+
+
+.product-card .rating {
+    font-size: 18px;
+    display: flex;
     position: relative;
     width: fit-content;
 }
 
-.product-card .rating box-icon {
-    height: 100%;
-    width: auto;
+.product-card .rating-amount {
+    opacity: 0.5;
+    font-size: 16px;
 }
 
-.product-card .rating .rating-overlay {
+.product-card .rating .stars {
+    position: relative;
+    color: rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+
+.product-card .rating .stars .rating-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 90%; /* Adjust this based on the rating value */
     height: 100%;
-    background-color: gold; /* Color for the filled portion */
     display: flex;
     overflow: hidden;
-    display: none;
+    color: gold; /* Color for the filled stars */
+    pointer-events: none;
 }
 
 .product-card a {

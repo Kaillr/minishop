@@ -10,37 +10,53 @@
     <%- include("../partials/header") %>
 
     <main>
-        <p>Results for <b>"<%= query %>"</b></p><br>
+        <div id="content">
+            <p>Results for <b>"<%= query %>"</b></p><br>
 
-        <% if (results.length > 0) { %>
+            <% if (results.length > 0) { %>
             <div id="search-results" class="search-results">
-            <% results.forEach(product => { %>
-            <div class="product-card" title="<%- product.product_id %>">
-                <a href="/product/<%= product.product_id %>/<%= encodeURIComponent(product.brand).replace(/%20/g, '+') %>+<%= encodeURIComponent(product.product_name).replace(/%20/g, '+') %>"></a>
+                <% results.forEach(product => { %>
+                <div class="product-wrapper">
+                    <div class="product-card" title="<%- product.product_id %>">
+                        <a href="/product/<%= product.product_id %>/<%= encodeURIComponent(product.brand).replace(/%20/g, '+') %>+<%= encodeURIComponent(product.product_name).replace(/%20/g, '+') %>"></a>
 
-                <div class="picture" style="background-image: url('https://minishop.mikaelho.land/<%= product.image_path.replace(/\\/g, '/') %>');" alt="<%= product.product_name %>"></div> <!-- thanks chatgpt for the help <3 -->
+                        <div class="upper">
+                            <button class="favorite"><i class='bx bxs-heart'></i></button>
+                            <button class="add-to-cart"><i class='bx bxs-cart-add'></i></button>
+                        </div>
 
-                <p></p>
-                <div class="lower">
-                    <p><%= product.brand %></p>
-                    <h3><%= product.product_name %></h3>
-                    <div class="rating">
-                        <box-icon name='star' type='solid' color='#c8c8c8'></box-icon>
-                        <box-icon name='star' type='solid' color='#c8c8c8'></box-icon>
-                        <box-icon name='star' type='solid' color='#c8c8c8'></box-icon>
-                        <box-icon name='star' type='solid' color='#c8c8c8'></box-icon>
-                        <box-icon name='star' type='solid' color='#c8c8c8'></box-icon>
-                        <p>(<%= product.rating_amount || "0" %>)</p>
-                        <span class="rating-overlay"></span>
+                        <div class="picture" style="background-image: url('https://minishop.mikaelho.land/<%= product.image_path.replace(/\\/g, '/') %>');" alt="<%= product.product_name %>"></div> <!-- thanks chatgpt for the help <3 -->
+
+                        <div class="lower">
+                            <div class="brand"><%= product.brand %></div>
+                            <div class="product-name"><%= product.product_name %></div>
+                            <div class="rating">
+                                <div class="stars">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <span class="rating-overlay" style="width: calc((<%= product.rating || "0" %> / 5) * 100%)">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </span>
+                                </div>
+                                <span class="rating-amount">(<%= product.rating_amount || "0" %>)</span>
+                            </div>
+                            <span class="price">$<%= product.price %></span>
+                        </div>
                     </div>
-                    <p>$<%= product.price %></p>
                 </div>
+                <% }); %>
             </div>
-            <% }); %>
+            <% } else { %>
+            <p>No products found.</p>
+            <% } %>
         </div>
-        <% } else { %>
-        <p>No products found.</p>
-        <% } %>
     </main>
 
     <%- include("../partials/footer") %>
