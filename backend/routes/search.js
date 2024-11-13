@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     const words = query.trim().split(/\s+/); // Split query into words based on spaces
 
     let results = []; // Initialize results array
-    if (words.length > 0) {
+    if (query.length > 0) {
         // Create dynamic SQL query with multiple AND conditions for each word
         const sqlQuery = `
             SELECT brand, product_name, description, price, image_path, product_id
