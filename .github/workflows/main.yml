@@ -22,7 +22,6 @@ jobs:
           git pull origin main
           git clean -fd
           git status
-          npm install --only=prod
           cd backend
           git status
           npm install --only=prod
