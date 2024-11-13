@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include("../partials/head") %>
 </head>
+
 <body>
-    <%- include("../partials/header") %>
 
     <main>
-        <h1>Logout</h1><br>
-        <form action="/logout" method="post">
-            <label for="submit">You are logged in to <%= email %>: </label>
-            <button type="submit" name="submit">Log out</button>
-        </form>
+        <label for="submit">Are you sure you want to sign out?</label><br>
+        <div>
+
+            <form action="/logout" method="post">
+                <button type="submit" name="submit">Sign out</button>
+            </form>
+        </div>
     </main>
 
     <%- include("../partials/footer") %>
 </body>
+
 </html>
