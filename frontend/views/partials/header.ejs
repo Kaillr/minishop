@@ -2,8 +2,8 @@
     <div class="header-content">
         <h1><a href="/">Minishop</a></h1>
         <form action="/search" id="searchForm" method="get" class="search">
-            <input type="text" name="query" placeholder="Search..." value="<%= query %>">
-            <button type="submit">Search</button>
+            <input type="text" name="query" placeholder="Search for products or categories..." value="<%= query %>">
+            <button type="submit"><i class='bx bx-search'></i></box-icon></button>
         </form>
         <% if (userId) { %>
         <li>Welcome, <%= user.firstName %></li>
@@ -11,12 +11,12 @@
         <nav>
             <ul>
                 <% if (userId) { %>
-                <li><a href="/settings/profile">Profile</a></li>
+                <li><a href="/settings/profile"><i class='bx bx-user'></i></box-icon>Profile</a></li>
                 <% } else { %>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Register</a></li>
                 <% } %>
-                <li><a href="/cart">Cart</a></li>
+                <li><a href="/cart"><i class='bx bx-cart'></i></box-icon>Cart</a></li>
             </ul>
         </nav>
     </div>
