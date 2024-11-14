@@ -36,16 +36,6 @@ router.post("/", async (req, res) => {
         }
 
         if (address_line1 || address_line2 || city || state || postal_code || country) {
-            console.log("Attempting to update address for userId:", userId);
-            console.log("Address data being updated:", {
-                address_line1,
-                address_line2,
-                city,
-                state,
-                postal_code,
-                country,
-            });
-        
             // First, try to update the existing address
             const [updateResult] = await db.promise().query(
                 "UPDATE addresses SET address_line1 = ?, address_line2 = ?, city = ?, state = ?, postal_code = ?, country = ? WHERE user_id = ?",
