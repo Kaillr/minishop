@@ -1,6 +1,7 @@
-const express = require("express");
+import express from 'express';
+import db from '../db/db.js';
+
 const router = express.Router();
-const db = require("../db/db");
 
 // Route for handling search queries
 router.get("/", async (req, res) => {
@@ -42,4 +43,4 @@ router.get("/", async (req, res) => {
 });
 
 // Export the router
-module.exports = router;
+export default router;

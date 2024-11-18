@@ -1,8 +1,9 @@
-const express = require("express");
+import express from 'express';
+import { isAuthenticated } from '../middleware/auth.js';
+import bcrypt from 'bcrypt';
+import db from '../db/db.js';
+
 const router = express.Router();
-const { isAuthenticated } = require("../middleware/auth");
-const bcrypt = require("bcrypt");
-const db = require("../db/db");
 
 router.get("/", isAuthenticated, (req, res) => {
     res.render("security", {
@@ -22,7 +23,7 @@ router.post("/", async (req, res) => {
             // Validate the new password
             if (newPassword.length < 8) {
                 return res.status(400).json({ error: "New password must be at least 8 characters long" });
-            } else if (newPassword!== confirmPassword) {
+            } else if (newPassword !== confirmPassword) {
                 return res.status(400).json({ error: "New passwords do not match" });
             } else {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -41,4 +42,4 @@ router.post("/", async (req, res) => {
     }
 }); 
 
-module.exports = router;
+export default router;
