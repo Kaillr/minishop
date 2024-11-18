@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const db = require("../db/db");
-const { isAuthenticated, isAdmin } = require("../middleware/authMiddleware");
+const { isAuthenticated, isAdmin } = require("../middleware/auth");
 const fs = require("fs");
 
 router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
