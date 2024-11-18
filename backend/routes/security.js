@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     
     try {
         // Validate the current password
-        const isMatch = await bcrypt.compare(currentPassword, res.locals.password);
+        const isMatch = await bcrypt.compare(currentPassword, res.locals.user.password);
         if (!isMatch) {
             res.status(400).json({ error: "Invalid current password" });
         } else {
