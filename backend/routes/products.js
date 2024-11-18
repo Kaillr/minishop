@@ -1,6 +1,7 @@
-const express = require("express");
+import express from 'express';
+import db from '../db/db.js';
+
 const router = express.Router();
-const db = require("../db/db");
 
 // Route to handle product display
 router.get("/:product_id/:product_info", async (req, res) => {
@@ -31,4 +32,4 @@ router.get("/:product_id/:product_info", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

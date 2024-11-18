@@ -1,4 +1,4 @@
-const db = require('../db/db');
+import db from '../db/db.js';
 
 // Middleware to fetch user details
 const fetchUserDetails = (req, res, next) => {
@@ -43,4 +43,4 @@ const fetchUserDetails = (req, res, next) => {
     }
 };
 
-module.exports = fetchUserDetails;
+export default fetchUserDetails;

@@ -1,34 +1,38 @@
-// Import necessary modules
-const express = require("express");
-const session = require("express-session");
-const MySQLStore = require("express-mysql-session")(session);
-const path = require("path");
-const dotenv = require("dotenv");
+import express from 'express';
+import session from 'express-session';
+import MySQLStore from 'express-mysql-session';
+import path from 'path';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url'; // Import fileURLToPath to handle ES module paths
 
 // Load environment variables from .env file
 dotenv.config({ path: '../.env' });
 
 // Import database connection
-const db = require('./db/db');
+import db from './db/db.js';  // Note the .js extension for ES modules
 
 // Import middleware
-const fetchUserDetails = require("./middleware/fetchUserDetails");
+import fetchUserDetails from './middleware/fetchUserDetails.js';
 
 // Import routes
-const indexRoutes = require('./routes/index');
-const registerRoutes = require('./routes/register');
-const loginRoutes = require('./routes/login');
-const searchRoutes = require('./routes/search');
-const logoutRoutes = require('./routes/logout');
-const profileRoutes = require('./routes/profile');
-const securityRoutes = require('./routes/security');
-const adminRoutes = require('./routes/admin');
-const productRoutes = require("./routes/products");
-const editproductRoutes = require("./routes/editproducts");
+import indexRoutes from './routes/index.js';
+import registerRoutes from './routes/register.js';
+import loginRoutes from './routes/login.js';
+import searchRoutes from './routes/search.js';
+import logoutRoutes from './routes/logout.js';
+import profileRoutes from './routes/profile.js';
+import securityRoutes from './routes/security.js';
+import adminRoutes from './routes/admin.js';
+import productRoutes from './routes/products.js';
+import editproductRoutes from './routes/editproducts.js';
 
 // Initialize Express app
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Resolve __dirname in ES module context
+const __filename = fileURLToPath(import.meta.url);  // Get the current file path
+const __dirname = path.dirname(__filename);  // Get the directory of the current file
 
 // Configure EJS as the templating engine
 app.set('trust proxy', true);

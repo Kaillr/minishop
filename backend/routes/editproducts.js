@@ -1,7 +1,8 @@
-const express = require("express");
+import express from 'express';
+import db from '../db/db.js';
+import { isAuthenticated, isAdmin } from '../middleware/auth.js';
+
 const router = express.Router();
-const db = require("../db/db")
-const { isAuthenticated , isAdmin } = require("../middleware/auth");
 
 router.get("/:product_id", isAuthenticated, isAdmin, async (req, res) => {
     const productId = req.params.product_id;
@@ -31,4 +32,4 @@ router.get("/:product_id", isAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

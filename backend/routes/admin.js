@@ -1,23 +1,23 @@
-const express = require("express");
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import db from '../db/db.js';
+import { isAuthenticated, isAdmin } from '../middleware/auth.js';
+import fs from 'fs';
+
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
-const db = require("../db/db");
-const { isAuthenticated, isAdmin } = require("../middleware/auth");
-const fs = require("fs");
 
 router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
     const [rows] = await db.promise().query(`
         SELECT brand, product_name, description, price, image_path, product_id
         FROM products
     `);
-    const results = rows
+    const results = rows;
 
     res.render("admin/products", {
         title: "Dashboard - Minishop",
         products: results
     });
-
 });
 
 // Set up multer for image uploads
@@ -42,19 +42,16 @@ async function deleteProductFromDatabase(req, res) {
     }
 }
 
-
-
 // Route for adding a product, including image upload
 router.post("/products/add", upload.single('image'), isAuthenticated, isAdmin, async (req, res) => {
     const { brand, name, description, price } = req.body;
     console.log("Received product data:", req.body);
-    
+
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded." });
     }
     const imagePath = req.file.path; // Path to the uploaded image
     console.log("Image uploaded successfully:", imagePath);
-    
 
     // Insert product into the database, including the image path
     try {
@@ -88,6 +85,4 @@ router.post('/products/delete', isAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
-
-
-module.exports = router;
+export default router;

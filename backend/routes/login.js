@@ -1,7 +1,8 @@
-const express = require("express");
+import express from 'express';
+import db from '../db/db.js';
+import bcrypt from 'bcrypt';
+
 const router = express.Router();
-const db = require("../db/db");
-const bcrypt = require("bcrypt");
 
 // Route for the login page
 router.get("/", (req, res) => {
@@ -40,4 +41,4 @@ router.post("/", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

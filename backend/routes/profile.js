@@ -1,7 +1,8 @@
-const express = require("express");
+import express from 'express';
+import { isAuthenticated } from '../middleware/auth.js';
+import db from '../db/db.js';
+
 const router = express.Router();
-const { isAuthenticated } = require("../middleware/auth");
-const db = require("../db/db");
 
 // Use the authentication middleware for this route
 router.get("/", isAuthenticated, (req, res) => {
@@ -62,4 +63,4 @@ router.post("/", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
