@@ -47,8 +47,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // Expires after 24 hours
-        secure: true, // Secure only works over HTTPS
+        maxAge: 1000 * 60 * 60 * 24 * 7, // Expires after 7 days
+        secure: false, // Secure only works over HTTPS
         httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
     }
 }));
