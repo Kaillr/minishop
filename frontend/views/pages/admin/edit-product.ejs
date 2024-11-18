@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../../partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/editproduct.css">
+</head>
+
+<body>
+    <%- include("../../partials/header.ejs") %>
+
+    <main>
+        <div id="content">
+            <a href="/settings/admin/products">< Back to product manager</a><br><br>
+            <h2>Edit: <%= product.brand %> - <%= product.product_name%></h2>
+            <form id="edit-product-info">
+                <label for="productBrand">Product Brand</label><br>
+                <input type="text" id="productBrand" value="<%= product.brand %>"><br>
+                <label for="productName">Product Name</label><br>
+                <input type="text" id="productName" value="<%= product.product_name %>"><br>
+                <label for="productDescription">Product Description</label><br>
+                <textarea id="productDescription" rows="5" cols="30"><%= product.description %></textarea><br>
+                <label for="productPrice">Product Price</label><br>
+                <input type="number" id="productPrice" step="0.01" value="<%= product.price %>"><br>
+                <label for="productStock">Product Stock</label><br>
+                <input type="number" id="productStock" step="1" value="<%= product.stock %>"><br>
+                <label for="productImages">Product Images</label>
+                <input type="file" id="productImages" accept="image/*, .avif"><br>
+            </form>
+        </div>
+    </main>
+    <%- include("../../partials/footer.ejs") %>
+    <%- include("../../partials/scripts") %>
+</body>
+
+</html>

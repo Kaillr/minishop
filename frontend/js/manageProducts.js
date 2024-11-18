@@ -53,39 +53,43 @@ document.getElementById("addProductForm").addEventListener("submit", async funct
     }
 });
 
-
-const deleteButtons = document.querySelectorAll("button[data-id]");
-
-deleteButtons.forEach(button => {
-    button.addEventListener("click", async function() {
+document.querySelectorAll("button[data-id]").forEach(button => {
+    button.addEventListener("click", async function () {
         const productId = button.getAttribute("data-id");
 
-        if (confirm("Are you sure you want to delete this product?")) {
-            try {
-                // Make AJAX POST request to delete the product
-                const response = await fetch(`/settings/admin/products/delete`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ product_id: productId }),
-                });
+        if (button.id === "delete-product-button") {
+            if (confirm("Are you sure you want to delete this product?")) {
+                try {
+                    // Make AJAX POST request to delete the product
+                    const response = await fetch(`/settings/admin/products/delete`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ product_id: productId }),
+                    });
 
-                const result = await response.json();
-                
-                if (response.ok) {
-                    alert(result.message); // Success message
+                    const result = await response.json();
 
-                    // Optionally, remove the row from the table without reloading
-                    const row = button.closest("tr");
-                    row.remove();
-                } else {
-                    alert("Error: " + result.error); // Error message
+                    if (response.ok) {
+                        alert(result.message); // Success message
+
+                        // Optionally, remove the row from the table without reloading
+                        const row = button.closest("tr");
+                        if (row) row.remove();
+                    } else {
+                        alert("Error: " + result.error); // Error message
+                    }
+                } catch (error) {
+                    console.error("Error deleting product:", error);
+                    alert("An error occurred. Please try again.");
                 }
-            } catch (error) {
-                console.error("Error deleting product:", error);
-                alert("An error occurred. Please try again.");
             }
+        } else if (button.id === "edit-product-button") {
+            // Add your edit functionality here
+            console.log(`Edit button clicked for product with ID: ${productId}`);
+            // Example: Redirect to edit page
+            window.location.href = `/settings/admin/products/edit/${productId}`;
         }
     });
 });

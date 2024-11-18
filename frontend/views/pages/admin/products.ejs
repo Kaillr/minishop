@@ -55,8 +55,8 @@
                         <td><%= product.product_name %></td>
                         <td><%= product.price %></td>
                         <td>
-                            <button data-id="<%= product.product_id %>">Edit</button>
-                            <button data-id="<%= product.product_id %>">Delete</button>
+                            <button data-id="<%= product.product_id %>" id="edit-product-button">Edit</button>
+                            <button data-id="<%= product.product_id %>" id="delete-product-button">Delete</button>
                         </td>
                     </tr>
                     <% }) %>
