@@ -17,6 +17,7 @@ const fetchUserDetails = require("./middleware/fetchUserDetails");
 // Import routes
 const indexRoutes = require('./routes/index');
 const registerRoutes = require('./routes/register');
+const verifyRoutes = require('./routes/verify');
 const loginRoutes = require('./routes/login');
 const searchRoutes = require('./routes/search');
 const logoutRoutes = require('./routes/logout');
@@ -41,15 +42,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configure session middleware
 const sessionStore = new MySQLStore({}, db);
+
 app.use(session({
     key: 'minishop_session',
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7, // Expires after 7 days
-        secure: false, // Secure only works over HTTPS
+        secure: true, // Secure only works over HTTPS
         httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
     }
 }));
@@ -69,6 +71,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Define routes
 app.use("/", fetchUserDetails, indexRoutes);
 app.use("/register", registerRoutes);
+app.use("/verify", verifyRoutes);
 app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
 app.use("/logout", logoutRoutes);

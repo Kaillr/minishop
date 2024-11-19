@@ -25,25 +25,31 @@ router.post("/", async (req, res) => {
     }
 
     try {
+        // Check if email already exists in the database
+        const [rows] = await db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
+
+        if (rows.length > 0) {
+            return res.status(400).json({ error: "Email already registered." });
+        }
+
         // Hash the password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert the user into the database
-        await db.promise().query(
-            "INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?,?)",
-            [first_name, last_name, email, hashedPassword]
-        );
 
-        // Send a success response (no need to render a page)
-        res.status(200).json({ message: "User registered successfully!" });
+
+        // Store registration info in session
+        req.session.registrationInfo = {
+            first_name,
+            last_name,
+            email,
+            hashedPassword,
+        };
+
+        // Respond with a success message
+        res.status(200).json({ message: "Verify your email to complete registration." });
 
     } catch (error) {
         console.error(error);
-
-        // Handle duplicate email (or other database errors)
-        if (error.code === 'ER_DUP_ENTRY') {
-            return res.status(400).json({ error: "Email already registered." });
-        }
 
         res.status(500).json({ error: "An error occurred while registering the user." });
     }

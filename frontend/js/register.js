@@ -10,6 +10,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 
     // Clear previous errors
     document.getElementById('error').innerText = '';
+    document.getElementById('message').innerText = '';
 
     // Prepare the form data to send to the server
     const formData = {
@@ -34,11 +35,12 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 
         // Check if registration was successful
         if (response.ok) {
-            // Redirect to the login page if successful
-            window.location.href = '/login';
+            // Redirect to the verification page if successful
+            window.location.href = '/verify';
         } else {
             // Show error message from server
             document.getElementById('error').innerText = result.error;
+            document.getElementById('message').innerText = '';
         }
 
     } catch (error) {
