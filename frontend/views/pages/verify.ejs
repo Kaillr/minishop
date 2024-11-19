@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head") %>
+</head>
+
+<body>
+    <h1><a href="/">Minishop</a></h1>
+
+    <p>Verification code sent to <b><%= email %></b></p>
+    <form id="verifyForm">
+        <label for="verificationCode">Enter your Verification Code:</label>
+        <input id="verificationCode" name="verificationCode" type="text" required>
+    
+        <button type="submit">Verify</button>
+    </form>
+
+    <div id="error" style="color:red"></div>
+    <div id="message" style="color:green;"></div>
+
+    Don't have an account? <a href="/register">Register</a>
+    <script src="/js/verify.js"></script>
+</body>
+
+</html>

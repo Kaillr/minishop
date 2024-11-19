@@ -5,7 +5,7 @@ const fetchUserDetails = (req, res, next) => {
     if (req.session.userId) {
         db.promise()
             .query(`
-                SELECT u.first_name, u.last_name, u.email, u.phone_number, u.role, password, 
+                SELECT u.first_name, u.last_name, u.email, u.phone_number, u.password, u.role, u.is_verified,
                        a.address_line1, a.address_line2, a.city, a.state, a.postal_code, a.country
                 FROM users u
                 LEFT JOIN addresses a ON u.user_id = a.user_id
@@ -22,6 +22,7 @@ const fetchUserDetails = (req, res, next) => {
                         role: user.role || '',
                         password: user.password || '',
                         isAdmin: user.role === 'admin',
+                        isVerified: user.is_verified || false,
                         address: {
                             line1: user.address_line1 || '',
                             line2: user.address_line2 || '',
