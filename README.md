@@ -1,3 +1,4 @@
+[![Deploy](https://github.com/Kaillr/minishop/actions/workflows/main.yml/badge.svg)](https://github.com/Kaillr/minishop/actions/workflows/main.yml)
 
 # 🛍️ Minishop
 
