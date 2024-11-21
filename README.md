@@ -1,4 +1,6 @@
 [![Deploy](https://github.com/Kaillr/minishop/actions/workflows/main.yml/badge.svg)](https://github.com/Kaillr/minishop/actions/workflows/main.yml)
+[![Latest Release](https://img.shields.io/github/v/release/Kaillr/minishop)](https://github.com/Kaillr/minishop/releases/minishop)
+[![CodeFactor](https://www.codefactor.io/repository/github/kaillr/minishop/badge)](https://www.codefactor.io/repository/github/kaillr/minishop)
 
 # 🛍️ Minishop
 
