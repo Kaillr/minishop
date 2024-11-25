@@ -82,7 +82,7 @@ app.use("/settings/admin", adminRoutes);
 app.use("/settings/admin/products/edit", editproductRoutes);
 
 // Catch-all 404 handler for unavailable routes
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).render("404", {
         title: "404 Not Found",
     });
