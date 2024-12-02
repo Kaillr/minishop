@@ -14,7 +14,7 @@ router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
     const results = rows
 
     res.render("admin/products", {
-        title: "Dashboard - Minishop",
+        title: "Manage Products - Minishop",
         products: results
     });
 
