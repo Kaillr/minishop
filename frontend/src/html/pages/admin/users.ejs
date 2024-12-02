@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../../head") %>
+    <link rel="stylesheet" href="/styles/settings.css">
+</head>
+
+<body>
+    <%- include("../../header") %>
+
+    <main>
+        <%- include("../../profile-left-sidebar") %>
+        <div id="content">
+            <form id="manageMembersForm" method="GET">
+                <label for="email">Email:</label><br>
+                <input type="email" name="email" id="email">
+                <button type="submit">Search</button>
+            </form>
+            <% if (user && user.user_id) { %>
+            <div class="user">
+                <p>First Name: <%= user.first_name %></p>
+                <p>Last Name: <%= user.last_name %></p>
+                <p>Email: <%= user.email %></p>
+                <p>Role: <%= user.role %></p>
+                <% if (user.role === "admin") { %>
+                <button type="submit" id="revokeAdmin">Revoke Admin</button>
+                <% } else { %>
+                <button type="submit" id="makeAdmin">Make Admin</button>
+                <% } %>
+            </div>
+            <% } else if (!user.user_id && !searchUser == "") { %>
+            <p>No user found based on your search criteria.</p>
+            <% } %>
+        </div>
+    </main>
+    <%- include("../../footer") %>
+    <script src="/js/manageUsers.js"></script>
+</body>
+
+</html>
