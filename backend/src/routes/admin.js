@@ -36,7 +36,7 @@ router.get("/users", isAuthenticated, isAdmin, async (req, res) => {
         res.render("admin/users", {
             title: "Manage Users - Minishop",
             searchUser: email,
-            user: rows[0] || "",
+            userInfo: rows[0] || "",
         });
     } catch (error) {
         console.error("Failed to connect to database:", error);

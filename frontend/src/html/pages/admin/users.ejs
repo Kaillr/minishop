@@ -17,19 +17,19 @@
                 <input type="email" name="email" id="email">
                 <button type="submit">Search</button>
             </form>
-            <% if (user && user.user_id) { %>
+            <% if (userInfo.user_id) { %>
             <div class="user">
-                <p>First Name: <%= user.first_name %></p>
-                <p>Last Name: <%= user.last_name %></p>
-                <p>Email: <%= user.email %></p>
-                <p>Role: <%= user.role %></p>
-                <% if (user.role === "admin") { %>
+                <p>First Name: <%= userInfo.first_name %></p>
+                <p>Last Name: <%= userInfo.last_name %></p>
+                <p>Email: <%= userInfo.email %></p>
+                <p>Role: <%= userInfo.role %></p>
+                <% if (userInfo.role === "admin") { %>
                 <button type="submit" id="revokeAdmin">Revoke Admin</button>
                 <% } else { %>
                 <button type="submit" id="makeAdmin">Make Admin</button>
                 <% } %>
             </div>
-            <% } else if (!user.user_id && !searchUser == "") { %>
+            <% } else if (!userInfo.user_id && !searchUser == "") { %>
             <p>No user found based on your search criteria.</p>
             <% } %>
         </div>
