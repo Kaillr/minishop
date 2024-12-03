@@ -2,24 +2,25 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
 const resend = require("../services/resend");
-const { isAuthenticated } = require("../middleware/auth"); // Importing the authentication middleware
 
 // Route for the verification page (GET)
 router.get("/", async (req, res) => {
-    const { registrationInfo } = req.session; // For registration process
-    const { user } = res.locals; // For logged-in user (via res.locals)
+    const { registrationInfo } = req.session;
+    const { user } = res.locals;
+
+    console.log(req.session);
 
     if (user && user.isVerified) {
-        // If user is already verified, redirect to home page
-        res.redirect("/");
+        // Redirect if the user is already verified
+        return res.redirect("/");
     }
 
-    // Check if the user is registering
-    if (registrationInfo) {
+    if (registrationInfo && registrationInfo.email) {
+        // Proceed only if registrationInfo exists and contains email
         const { email } = registrationInfo;
 
-        // If verification code doesn't exist, generate and send it
         if (!registrationInfo.verificationCode) {
+            console.log("Generating verification code");
             const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
             // Send verification email
@@ -30,24 +31,23 @@ router.get("/", async (req, res) => {
                 html: `<h1>Email Verification</h1><p>Your verification code is: <b>${verificationCode}</b></p>`,
             });
 
-            // Store verification code in session
-            req.session.registrationInfo.verificationCode = verificationCode;
+            req.session.registrationInfo.verificationCode = verificationCode; // Store the code in session
         }
 
-        // Render verification page for registration
-        res.render("verify", {
+        // Render the verification page
+        return res.render("verify", {
             title: "Verify Your Account",
-            email: registrationInfo.email,
+            email,
         });
-    } else if (user && !user.is_verified) {
-        // For logged-in users who are not verified yet
+    }
+
+    if (user && !user.isVerified) {
+        // For logged-in users who are not verified
         const { email } = user;
 
-        // If verification code hasn't been sent yet, generate and send it
         if (!req.session.registrationInfo || !req.session.registrationInfo.verificationCode) {
             const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            // Send verification email
             await resend.emails.send({
                 from: "Minishop <minishop@mikaelho.land>",
                 to: email,
@@ -55,74 +55,69 @@ router.get("/", async (req, res) => {
                 html: `<h1>Email Verification</h1><p>Your verification code is: <b>${verificationCode}</b></p>`,
             });
 
-            // Store verification code in the session
             req.session.registrationInfo = req.session.registrationInfo || {};
             req.session.registrationInfo.verificationCode = verificationCode;
         }
 
-        res.render("verify", {
+        return res.render("verify", {
             title: "Verify Your Account",
-            email: user.email,
+            email,
         });
-    } else {
-        // If not registering and not logged in, redirect to the index page
-        res.redirect("/");
     }
+
+    // If no valid case matches, redirect to the index page
+    return res.redirect("/");
 });
 
 // Route for handling verification (POST)
 router.post("/", async (req, res) => {
     const { verificationCode: providedCode } = req.body;
-    const { registrationInfo } = req.session; // For registration process
-    const { user } = res.locals; // For logged-in user
+    const { registrationInfo } = req.session;
+    const { user } = res.locals;
 
-    // If registering, check the session verification code
+    if (!registrationInfo && !user) {
+        // Redirect if no registrationInfo or user is available
+        return res.redirect("/");
+    }
+
     if (!user) {
-        if (providedCode === registrationInfo.verificationCode) {
+        // Handle registration verification
+        if (registrationInfo && providedCode === registrationInfo.verificationCode) {
             const { first_name, last_name, email, hashedPassword } = registrationInfo;
 
             try {
-                // Insert the new user into the database and set is_verified to true
                 await db.promise().query(
                     "INSERT INTO users (first_name, last_name, email, password, is_verified) VALUES (?,?,?,?,?)",
                     [first_name, last_name, email, hashedPassword, true]
                 );
 
-                // Clear the registration session after successful verification
-                req.session.registrationInfo = null;
-
-                res.status(200).json({ message: "Account verified successfully!", redirectUrl: "/login" });
+                req.session.registrationInfo = null; // Clear registration info
+                return res.status(200).json({ message: "Account verified successfully!", redirectUrl: "/login" });
             } catch (error) {
                 console.error(error);
-                res.status(500).json({ error: "An error occurred during registration." });
+                return res.status(500).json({ error: "An error occurred during registration." });
             }
         } else {
-            res.status(400).json({ error: "Invalid verification code." });
-        }
-    } else if (user) {
-        // For logged-in users who need verification
-        if (providedCode === req.session.registrationInfo?.verificationCode) {
-            try {
-                // Update the user's `is_verified` status to true in the database
-                await db.promise().query(
-                    "UPDATE users SET is_verified = ? WHERE email = ?",
-                    [true, user.email]  // Set is_verified to true for the user
-                );
-
-                // Clear session verification info after successful verification
-                req.session.registrationInfo = null;
-
-                res.status(200).json({ message: "Account verified successfully!", redirectUrl: "/"});
-            } catch (error) {
-                console.error(error);
-                res.status(500).json({ error: "An error occurred during verification." });
-            }
-        } else {
-            res.status(400).json({ error: "Invalid verification code." });
+            return res.status(400).json({ error: "Invalid verification code." });
         }
     } else {
-        // If no user or registration info, redirect
-        res.redirect("/");
+        // Handle logged-in user verification
+        if (providedCode === req.session.registrationInfo?.verificationCode) {
+            try {
+                await db.promise().query(
+                    "UPDATE users SET is_verified = ? WHERE email = ?",
+                    [true, user.email]
+                );
+
+                req.session.registrationInfo = null; // Clear session
+                return res.status(200).json({ message: "Account verified successfully!", redirectUrl: "/" });
+            } catch (error) {
+                console.error(error);
+                return res.status(500).json({ error: "An error occurred during verification." });
+            }
+        } else {
+            return res.status(400).json({ error: "Invalid verification code." });
+        }
     }
 });
 
