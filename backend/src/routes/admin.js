@@ -174,7 +174,7 @@ router.post("/users/revoke-admin", isAuthenticated, isAdmin, async (req, res) =>
                             <a href="https://minishop.mikaelho.land/settings/admin/products" class="button">Go to Admin Dashboard</a>
                         </div>
                         <div class="footer">
-                            <p>If you have any questions or need assistance, feel free to reach out to us at no-reply@minishop.mikaelho.land.</p>
+                            <p>If you have any questions or need assistance, feel free to reach out to us at noreply@minishop.mikaelho.land.</p>
                             <p>Thank you for being a part of the Minishop team!</p>
                         </div>
                     </div>
