@@ -22,8 +22,9 @@ jobs:
           git pull origin main
           git clean -fd
           git status
-          cd backend
+          cd ./backend
           git status
           npm install --only=prod
+          cd ./src
           pm2 stop server.js
           pm2 start server.js --name minishop --watch
