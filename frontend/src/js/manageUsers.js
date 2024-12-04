@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("makeAdmin")?.addEventListener("click", async (event) => {
         event.preventDefault();
 
-        const email = document.getElementById("email").value;
+        const queryParams = new URLSearchParams(window.location.search);
+        const email = queryParams.get("email");
 
         if (!email) {
             alert("Email is required to update admin status.");
