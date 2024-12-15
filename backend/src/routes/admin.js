@@ -7,7 +7,7 @@ const fs = require("fs");
 const resend = require("../services/resend")
 
 router.get("/products", isAuthenticated, isAdmin, async (req, res) => {
-    const [rows] = await db.promise().query(`
+    const [rows] = await db.query(`
         SELECT brand, product_name, description, price, image_path, product_id
         FROM products
     `);
@@ -24,7 +24,7 @@ router.get("/users", isAuthenticated, isAdmin, async (req, res) => {
     const email = req.query.email || "";
 
     try {
-        const [rows] = await db.promise().query(
+        const [rows] = await db.query(
             `
             SELECT user_id, first_name, last_name, email, role
             FROM users
@@ -49,7 +49,7 @@ router.post("/users/make-admin", isAuthenticated, isAdmin, async (req, res) => {
     const { email } = req.body;
 
     try {
-        const [result] = await db.promise().query(
+        const [result] = await db.query(
             "UPDATE users SET role = 'admin' WHERE email = ?",
             [email]
         );
@@ -69,7 +69,7 @@ router.post("/users/revoke-admin", isAuthenticated, isAdmin, async (req, res) =>
     const { email } = req.body;
 
     try {
-        const [result] = await db.promise().query(
+        const [result] = await db.query(
             "UPDATE users SET role = 'user' WHERE email = ?",
             [email]
         );
@@ -81,7 +81,7 @@ router.post("/users/revoke-admin", isAuthenticated, isAdmin, async (req, res) =>
         }
 
         try {
-            const [rows] = await db.promise().query(
+            const [rows] = await db.query(
                 "SELECT first_name, last_name FROM users WHERE email = (?)",
                 [email]
             );
@@ -208,7 +208,7 @@ const upload = multer({ storage: storage });
 
 async function deleteProductFromDatabase(req, res) {
     try {
-        await db.promise().query("DELETE FROM products WHERE product_id = ?", [req.body.product_id]);
+        await db.query("DELETE FROM products WHERE product_id = ?", [req.body.product_id]);
         res.json({ message: "Product deleted successfully." });
     } catch (error) {
         console.error("Error deleting product: ", error);
@@ -232,7 +232,7 @@ router.post("/products/add", upload.single('image'), isAuthenticated, isAdmin, a
 
     // Insert product into the database, including the image path
     try {
-        await db.promise().query(
+        await db.query(
             "INSERT INTO products (brand, product_name, description, price, image_path) VALUES (?, ?, ?, ?, ?)",
             [brand, name, description, price, imagePath]
         );

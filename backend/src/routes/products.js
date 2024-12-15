@@ -8,7 +8,7 @@ router.get("/:product_id/:product_info", async (req, res) => {
 
     try {
         // Fetch product details based on product_id
-        const [productRows] = await db.promise().query(
+        const [productRows] = await db.query(
             "SELECT * FROM products WHERE product_id = ?",
             [productId]
         );

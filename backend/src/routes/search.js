@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
         const sqlParams = words.flatMap(word => [`%${word}%`, `%${word}%`]);
 
         try {
-            const [rows] = await db.promise().query(sqlQuery, sqlParams);
+            const [rows] = await db.query(sqlQuery, sqlParams);
             results = rows; // Set results to the fetched rows
 
             // Render the search page with results

@@ -3,8 +3,6 @@ const db = require('../db/db');
 // Middleware to fetch user details
 const fetchUserDetails = (req, res, next) => {
     if (req.session.userId) {
-        db.promise()
-            .query(`
                 SELECT u.first_name, u.last_name, u.email, u.phone_number, u.password, u.role, u.is_verified,
                        a.address_line1, a.address_line2, a.city, a.state, a.postal_code, a.country
                 FROM users u
@@ -39,6 +37,7 @@ const fetchUserDetails = (req, res, next) => {
                 console.error("Error fetching user details: ", error);
                 next();
             });
+        db.query(
     } else {
         next(); // Proceed even if no user in session
     }

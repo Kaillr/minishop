@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 
     try {
         // Query the database for the user by email
-        const [rows] = await db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
+        const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
         
         if (rows.length > 0) {
             const user = rows[0];

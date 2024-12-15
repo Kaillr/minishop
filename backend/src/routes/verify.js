@@ -86,7 +86,7 @@ router.post("/", async (req, res) => {
             const { first_name, last_name, email, hashedPassword } = registrationInfo;
 
             try {
-                await db.promise().query(
+                await db.query(
                     "INSERT INTO users (first_name, last_name, email, password, is_verified) VALUES (?,?,?,?,?)",
                     [first_name, last_name, email, hashedPassword, true]
                 );
@@ -104,7 +104,7 @@ router.post("/", async (req, res) => {
         // Handle logged-in user verification
         if (providedCode === req.session.registrationInfo?.verificationCode) {
             try {
-                await db.promise().query(
+                await db.query(
                     "UPDATE users SET is_verified = ? WHERE email = ?",
                     [true, user.email]
                 );

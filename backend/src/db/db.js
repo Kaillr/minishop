@@ -3,19 +3,25 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: '../../.env' });
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-db.connect((error) => {
-    if (error) {
-        console.error("Database connection failed: ", error);
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error("Error connecting to the database:", err);
         return;
     }
-    console.log("MYSQL Connected...");
+    console.log("Database connection successful.");
+    connection.release(); // Return the connection to the pool
 });
+
+const db = pool.promise();
 
 module.exports = db;

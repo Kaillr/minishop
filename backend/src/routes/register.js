@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
     try {
         // Check if email already exists in the database
-        const [rows] = await db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
+        const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
 
         if (rows.length > 0) {
             return res.status(400).json({ error: "Email already registered." });

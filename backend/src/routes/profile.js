@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     try {
         if (email || phone) {
             // Check if the email already exists in the database
-            const [existingUser] = await db.promise().query(
+            const [existingUser] = await db.query(
                 "SELECT * FROM users WHERE email = ? AND user_id != ?",
                 [email, userId]
             );
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
             }
 
             // Update user details if email or phone is provided
-            await db.promise().query(
+            await db.query(
                 "UPDATE users SET email = ?, phone_number = ? WHERE user_id = ?",
                 [email || null, phone || null, userId]
             );
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 
         if (address_line1 || address_line2 || city || state || postal_code || country) {
             // First, try to update the existing address
-            const [updateResult] = await db.promise().query(
+            const [updateResult] = await db.query(
                 "UPDATE addresses SET address_line1 = ?, address_line2 = ?, city = ?, state = ?, postal_code = ?, country = ? WHERE user_id = ?",
                 [address_line1 || null, address_line2 || null, city || null, state || null, postal_code || null, country || null, userId]
             );
@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
             } else {
                 console.log("No address found for userId:", userId);
                 // If no address exists, insert a new record
-                const [insertResult] = await db.promise().query(
+                const [insertResult] = await db.query(
                     "INSERT INTO addresses (user_id, address_line1, address_line2, city, state, postal_code, country) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     [userId, address_line1, address_line2, city, state, postal_code, country]
                 );

@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
             } else {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
                 
-                await db.promise().query(
+                await db.query(
                     "UPDATE users SET password =? WHERE user_id =?",
                     [hashedPassword, req.session.userId]
                 );
