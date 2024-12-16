@@ -78,3 +78,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
     `data` text NOT NULL,
     PRIMARY KEY (`session_id`)
 );
+
+CREATE TABLE IF NOT EXISTS faqs (
+    faq_id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

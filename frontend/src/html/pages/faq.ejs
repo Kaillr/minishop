@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include("../head") %>
+</head>
+
+<body>
+    <%- include("../header") %>
+    <%- include("../cart-menu") %>
+
+    <main>
+        <div id="content">
+            <div class="faqs">
+                <% faqs.forEach(faq => { %>
+                <div class="faq">
+                    <div class="question">
+                        <h3><%= faq.question %></h3>
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="answer">
+                        <p><%= faq.answer %></p>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </main>
+
+    <%- include("../footer") %>
+    <%- include("../scripts") %>
+</body>
+
+</html>

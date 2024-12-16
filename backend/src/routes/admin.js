@@ -262,4 +262,26 @@ router.post('/products/delete', isAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
+router.get('/faqs', (req, res) => {
+    res.render('admin/faqs', {
+        title: 'Manage FAQs - Minishop'
+    })
+});
+
+router.post("/faqs", async (req, res) => {
+    try {
+        const { question, answer } = req.body;
+
+        await db.query(
+            "INSERT INTO faqs (question, answer) VALUES (?,?)",
+            [question, answer]
+        );
+        res.status(200).json({ message: "New FAQ added successfully." });
+    } catch (err) {
+        console.error(err);
+        console.error("Failed to add new FAQ to database");
+        res.status(200).json({ error: "Failed to add new FAQ. Please try again." });
+    }
+});
+
 module.exports = router;
