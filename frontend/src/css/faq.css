@@ -1,0 +1,36 @@
+.faqs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.faqs .faq .question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faqs .faq .question h3 {
+    margin-bottom: 5px;
+}
+
+.faqs .faq .question i.rotated {
+    transform: rotate(180deg);
+}
+
+.faqs .faq .answer {
+    border-bottom: 1px solid #eee;
+    height: 0;
+    overflow: hidden;
+}
+
+.faqs .faq .answer.active {
+    height: auto;
+}
+
+.faqs .faq .answer p {
+    margin-bottom: 10px;
+}
+

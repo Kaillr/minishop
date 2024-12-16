@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include("../head") %>
+    <link rel="stylesheet" href="/styles/faq.css">
 </head>
 
 <body>
@@ -28,6 +29,26 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const faqs = document.querySelectorAll(".faq");
+
+            faqs.forEach(faq => {
+                const question = faq.querySelector(".question");
+
+                question.addEventListener("click", () => {
+                    const answer = faq.querySelector(".answer");
+                    answer.classList.toggle("active");
+
+                    const chevron = question.querySelector('i.bx');
+                    if (chevron) {
+                        chevron.classList.toggle("rotated");
+                    }
+                });
+            });
+        });
+    </script>
 
     <%- include("../footer") %>
     <%- include("../scripts") %>
