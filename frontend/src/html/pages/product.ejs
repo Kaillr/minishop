@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <%- include("../head") %>
-    <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/product.css">
 </head>
 <body>
     <%- include("../header") %>
+    <%- include("../cart-menu") %>
     
     <main>
         <section class="product-details">
@@ -13,9 +14,11 @@
                 <img src="https://minishop.mikaelho.land/<%= product.image_path %>" alt="<%= product.product_name %>">
             </div>
             <div class="product-info">
-                <h2>Price: $<%= product.price %></h2>
+                <h3><%= product.brand %></h3>
+                <h2><%= product.product_name %></h2>
+                <p>$<%= product.price %></p>
                 <p><%= product.description %></p>
-                <button>Add to Cart</button> <!-- Implement your cart functionality -->
+                <button class="add-to-cart" id="add-to-cart" data-id="<%= product.product_id %>">Add to Cart</button>
             </div>
         </section>
     </main>

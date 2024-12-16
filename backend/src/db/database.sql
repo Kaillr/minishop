@@ -58,14 +58,17 @@ CREATE TABLE IF NOT EXISTS credits (
 );
 
 /* Stores user's cart items */
-CREATE TABLE IF NOT EXISTS cart (
+CREATE TABLE IF NOT EXISTS cart_items (
     cart_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
+    quantity INT DEFAULT 1,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
+        ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) 
+        ON DELETE CASCADE,
+    UNIQUE (user_id, product_id) -- Composite unique key
 );
 
 /* Stores user login sessions */

@@ -1,0 +1,46 @@
+<div id="cart-menu" class="cart-menu">
+    <div class="top">
+        Your Cart
+        <button id="close-cart-menu" onclick="toggleCartMenu()"><i class='bx bx-x'></i></button>
+    </div>
+
+    <% if (user.cart.length > 0) { %>
+    <div class="cart-items">
+        <% user.cart.forEach(product => { %>
+        <div class="product">
+
+            <div class="picture-container">
+                <div class="picture" style="background-image: url('https://minishop.mikaelho.land/<%= product.imagePath.replace(/\\/g, '/') %>');" aria-label="<%= product.productName %>"></div>
+            </div>
+            <div class="details">
+                <div class="left">
+                    <div class="description">
+                        <h3><%= product.productName %></h3>
+                        <p><%= product.brand %></p>
+                    </div>
+                    <div>
+                        <button id="remove-single-item" data-id="<%= product.productId %>"><i class='bx bx-minus'></i></button>
+                        <button id="add-single-item" data-id="<%= product.productId %>"><i class='bx bx-plus'></i></button>
+                        <button id="remove-from-cart" data-id="<%= product.productId %>"><i class='bx bx-trash'></i></button>
+                    </div>
+                </div>
+                <div class="right">
+                    <h3>$<%= product.price %></h3>
+                    <% if (product.stock > 0 || product.stock == "") { %>
+                    <p>In Stock</p>
+                    <% } else { %>
+                    <p>Out of Stock</p>
+                    <% } %>
+                </div>
+            </div>
+
+        </div>
+        <% }); %>
+    </div>
+    <div class="divider"></div>
+    <a href="/checkout" class="checkout-button">Go to Checkout</a>
+    <% } else { %>
+    <p>Oh no.. It looks like your cart is empty</p>
+    <% } %>
+</div>
+<div id="cart-backdrop"></div>
