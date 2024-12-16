@@ -23,6 +23,12 @@ router.get("/", async (req, res) => {
             const [rows] = await db.query(sqlQuery, sqlParams);
             results = rows; // Set results to the fetched rows
 
+            results.sort((a, b) => { // Sort results alphabetically by brand, then name
+                const brandNameA = `${a.brand} ${a.product_name}`.toLowerCase();
+                const brandNameB = `${b.brand} ${b.product_name}`.toLowerCase();
+                return brandNameA.localeCompare(brandNameB);
+            });
+
             // Render the search page with results
             return res.render("search", {
                 title: "Search - Minishop",
