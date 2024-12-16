@@ -26,6 +26,7 @@ const securityRoutes = require('./routes/security');
 const adminRoutes = require('./routes/admin');
 const productRoutes = require("./routes/products");
 const editproductRoutes = require("./routes/editproducts");
+const brandsRoutes = require("./routes/brands");
 
 // Initialize Express app
 const app = express();
@@ -78,6 +79,7 @@ app.use("/register", registerRoutes);
 app.use("/verify", verifyRoutes);
 app.use("/login", loginRoutes);
 app.use("/search", searchRoutes);
+app.use("/brands", brandsRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/product", productRoutes);
 app.use("/settings/profile", profileRoutes);
