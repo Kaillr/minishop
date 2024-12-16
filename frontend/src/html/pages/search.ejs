@@ -18,8 +18,8 @@
             <div id="search-results" class="search-results">
                 <% results.forEach(product => { %>
                 <div class="product-wrapper">
-                    <div class="product-card" title="<%- product.product_id %>">
-                        <a href="/product/<%= product.product_id %>/<%= encodeURIComponent(product.brand).replace(/%20/g, '+') %>+<%= encodeURIComponent(product.product_name).replace(/%20/g, '+') %>"></a>
+                    <div class="product-card">
+                        <a class="product-link" href="/product/<%= product.product_id %>/<%= encodeURIComponent(product.brand).replace(/%20/g, '+') %>+<%= encodeURIComponent(product.product_name).replace(/%20/g, '+') %>"></a>
 
                         <div class="upper">
                             <button class="favorite"><i class='bx bxs-heart'></i></button>
@@ -29,7 +29,7 @@
                         <div class="picture" style="background-image: url('https://minishop.mikaelho.land/<%= product.image_path.replace(/\\/g, '/') %>');" alt="<%= product.product_name %>"></div> <!-- thanks chatgpt for the help <3 -->
 
                         <div class="lower">
-                            <div class="brand"><%= product.brand %></div>
+                            <div class="brand"><a href="/brands/<%= product.brand %>"><%= product.brand %></a></div>
                             <div class="product-name"><%= product.product_name %></div>
                             <div class="rating">
                                 <div class="stars">

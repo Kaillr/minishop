@@ -79,8 +79,12 @@
     flex-direction: column;
 }
 
-.product-card .brand {
+.product-card .brand a {
+    color: black;
     opacity: .6;
+    text-decoration: none;
+    z-index: 2;
+    position: relative;
 }
 
 .product-card .product-name {
@@ -123,7 +127,7 @@
     pointer-events: none;
 }
 
-.product-card a {
+.product-card .product-link {
     position: absolute;
     top: 0;
     left: 0;
