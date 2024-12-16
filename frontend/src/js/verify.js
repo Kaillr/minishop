@@ -35,3 +35,26 @@ document.getElementById('verifyForm').addEventListener('submit', async function 
         document.getElementById('error').innerText = result.error;
     }
 });
+
+document.getElementById('resend-code').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/verify/resend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) { // if HTTP status code is 200
+            console.log("successfully sent verification code")
+        } else {
+            document.getElementById('error').innerText = result.error; // Display error message from server
+        }
+
+    } catch (error) {
+        console.error('An error occurred', error);
+        document.getElementById('error').innerText = result.error;
+    }
+})

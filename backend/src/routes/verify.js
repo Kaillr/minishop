@@ -3,6 +3,45 @@ const router = express.Router();
 const db = require("../db/db");
 const resend = require("../services/resend");
 
+function generateCode(n, chunks = 0, separator = ' ') {
+    var add = 1, max = 12 - add;
+    
+    var out;
+    if ( n > max ) {
+        out = generate(max) + generate(n - max);
+    }
+    else {
+        max        = Math.pow(10, n+add);
+        var min    = max/10; // Math.pow(10, n) basically
+        var number = Math.floor( Math.random() * (max - min + 1) ) + min;
+        
+        out = ("" + number).substring(add);
+    }
+    
+    if (chunks > 0 && n > chunks) {
+        // Insert separator every chunks characters
+        const instead = []; for (let i = 0; i < out.length; i++) {
+            if (i > 0 && i % chunks === 0) instead.push(separator);
+            instead.push(out[i]);
+        }
+        
+        return instead.join('');
+    }
+    
+    return out;
+}
+
+async function sendVerificationEmail(verificationCode, email) {
+    await resend.emails.send({
+        from: "Minishop <minishop@mikaelho.land>",
+        to: email,
+        subject: "Verify Your Email",
+        html: `<h1>Email Verification</h1><p>Your verification code is: <b>${verificationCode}</b></p>`,
+    });
+    console.log("Verification code sent");
+    console.log(verificationCode, email);
+}
+
 // Route for the verification page (GET)
 router.get("/", async (req, res) => {
     const { registrationInfo } = req.session;
@@ -20,18 +59,11 @@ router.get("/", async (req, res) => {
         const { email } = registrationInfo;
 
         if (!registrationInfo.verificationCode) {
-            console.log("Generating verification code");
-            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-            // Send verification email
-            await resend.emails.send({
-                from: "Minishop <minishop@mikaelho.land>",
-                to: email,
-                subject: "Verify Your Email",
-                html: `<h1>Email Verification</h1><p>Your verification code is: <b>${verificationCode}</b></p>`,
-            });
+            const verificationCode = generateCode(6)
+            req.session.registrationInfo.verificationCode = verificationCode;
 
-            req.session.registrationInfo.verificationCode = verificationCode; // Store the code in session
+            sendVerificationEmail(verificationCode, email);
         }
 
         // Render the verification page
@@ -46,14 +78,10 @@ router.get("/", async (req, res) => {
         const { email } = user;
 
         if (!req.session.registrationInfo || !req.session.registrationInfo.verificationCode) {
-            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            const verificationCode = generateCode(6)
+            req.session.registrationInfo.verificationCode = verificationCode;
 
-            await resend.emails.send({
-                from: "Minishop <minishop@mikaelho.land>",
-                to: email,
-                subject: "Verify Your Email",
-                html: `<h1>Email Verification</h1><p>Your verification code is: <b>${verificationCode}</b></p>`,
-            });
+            sendVerificationEmail(verificationCode, email);
 
             req.session.registrationInfo = req.session.registrationInfo || {};
             req.session.registrationInfo.verificationCode = verificationCode;
@@ -120,5 +148,14 @@ router.post("/", async (req, res) => {
         }
     }
 });
+
+router.post('/resend', async (req, res) => {
+    const { registrationInfo } = req.session;
+    const { email } =  res.locals.user;
+
+    const verificationCode = req.session.registrationInfo?.verificationCode
+
+    sendVerificationEmail(verificationCode, email)
+})
 
 module.exports = router;
