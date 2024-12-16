@@ -9,6 +9,12 @@
     padding: 4px;
 }
 
+@media (max-width: 1424px) {
+    .product-wrapper {
+        width: calc(100% / 3);
+    }
+}
+
 @media (max-width: 1024px) {
     .product-wrapper {
         width: calc(100% / 2);
