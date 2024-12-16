@@ -47,8 +47,6 @@ router.get("/", async (req, res) => {
     const { registrationInfo } = req.session;
     const { user } = res.locals;
 
-    console.log(req.session);
-
     if (user && user.isVerified) {
         // Redirect if the user is already verified
         return res.redirect("/");
