@@ -5,7 +5,7 @@ const fetchUserDetails = (req, res, next) => {
     if (req.session.userId) {
         // Fetch user details with cart items
         db.query(
-            `SELECT u.first_name, u.last_name, u.email, u.phone_number, u.password, u.role, u.is_verified,
+            `SELECT u.first_name, u.last_name, u.email, u.phone_number, u.role, u.is_verified,
                     a.address_line1, a.address_line2, a.city, a.state, a.postal_code, a.country
              FROM users u
              LEFT JOIN addresses a ON u.user_id = a.user_id
@@ -39,7 +39,6 @@ const fetchUserDetails = (req, res, next) => {
                     email: user.email || '',
                     phoneNumber: user.phone_number || '',
                     role: user.role || '',
-                    password: user.password || '',
                     isAdmin: user.role === 'admin',
                     isVerified: user.is_verified || false,
                     address: {
