@@ -262,13 +262,13 @@ router.post('/products/delete', isAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
-router.get('/faqs', (req, res) => {
+router.get('/faqs', isAuthenticated, isAdmin, (req, res) => {
     res.render('admin/faqs', {
         title: 'Manage FAQs - Minishop'
     })
 });
 
-router.post("/faqs", async (req, res) => {
+router.post("/faqs", isAuthenticated, isAdmin, async (req, res) => {
     try {
         const { question, answer } = req.body;
 
